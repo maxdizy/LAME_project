@@ -1,0 +1,48 @@
+import os
+import random
+from django.shortcuts import redirect, render
+from django.http import HttpResponse, JsonResponse
+from .MADI_config import readIRF, writeERF
+from MADI.forms import uploadForm
+from MADI.forms import IRFdataForm
+from .models import config
+from .models import IRFdata
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
+joke = random.choice(open('data/jokes.txt', encoding="utf8").readlines())
+joke = joke.split('<>')
+hook = joke[0]
+punch = joke[1]
+
+@login_required
+def home(request):
+    return render(request, 'MADI/home.html', {'form' : uploadForm, 'hook' : hook, 'punch' : punch, 'warning' : ''})
+
+@login_required
+def upload(request):
+    if request.method == 'POST':
+        form = uploadForm(request.POST, request.FILES)
+        #does ERFpath exist or is writable?
+        if os.path.exists(request.POST.get("ERFpath")) or os.access(os.path.dirname(request.POST.get("ERFpath")), os.W_OK):
+            if form.is_valid():
+                form.save()
+            request.user.first_name = "paul"
+            with open("data\ERFL.txt", "w") as file:
+                file.write(request.POST.get("ERFpath"))
+            CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROED = readIRF(request.FILES.get('file'), request.POST.get('caseNo'))
+            if ROED:
+                # data = IRFdataForm(CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROED, request.POST.get("dart"), request.POST.get("mod"), request.FILES.get('file').name)
+                # print(data)
+                # if data.is_valid():
+                #     data.save()
+                return render(request, 'MADI/ROED.html', {'potROED' : potROED, 'hook' : hook, 'punch' : punch})
+            else:  
+                writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROED, request.POST.get("dart"), request.POST.get("mod"), request.FILES.get('file').name)
+        else:
+            return render(request, 'MADI/home.html', {'form' : uploadForm, 'hook' : hook, 'punch' : punch, 'warning' : 'ERROR: Some fields were not filled out correctly. Please make sure your ERF path is valid.'})
+    return redirect('HOME-home')
+
+def createERF(request):
+    return HttpResponse(config.objects.latest('caseNo'))
+    #writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROED, request.POST.get("dart"), request.POST.get("mod"), request.FILES.get('file'))
