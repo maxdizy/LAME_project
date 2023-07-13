@@ -53,6 +53,7 @@ preshed==3.0.8
 protobuf==3.20.3
 PyPDF2
 pypiwin32==223
+Pywin32==223
 python-dateutil==2.8.2
 sentence-transformers
 sentencepiece==0.1.99
