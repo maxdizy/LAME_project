@@ -53,14 +53,6 @@ pipreqs
 platformdirs==3.8.0
 preshed==3.0.8
 protobuf==3.20.3
-py2exe
-pycparser==2.21
-pydantic==1.10.9
-Pygments==2.15.1
-pyinstaller
-pyinstaller-hooks-contrib==2023.4
-PyJWT==2.7.0
-pyparsing==3.1.0
 PyPDF2
 pypiwin32==223
 python-dateutil==2.8.2
