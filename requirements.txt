@@ -1,6 +1,6 @@
 altgraph==0.17.3
 asgiref==3.7.2
-./config/auto_py_to_exe-2.34.0-py2.py3-none-any.whl
+./config/auto_py_to_exe-2.34.0-py2.py3-none-any.whl#sha256=73484e708597c8f0c6f0e2d0affa87912c20cf797db99f2799b4a440ae53e1ee
 Babel==2.12.1
 blis==0.7.9
 bottle==0.12.25
@@ -16,13 +16,13 @@ confection==0.0.4
 cryptography==41.0.1
 cymem==2.0.7
 distlib==0.3.6
-Django @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/Django-4.1.7-py3-none-any.whl#sha256=f2f431e75adc40039ace496ad3b9f17227022e8b11566f4b363da44c7e44761e
+./config/Django-4.1.7-py3-none-any.whl#sha256=f2f431e75adc40039ace496ad3b9f17227022e8b11566f4b363da44c7e44761e
 docopt==0.6.2
 docutils==0.20.1
-docx-mailmerge @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/docx_mailmerge-0.5.0-py2.py3-none-any.whl#sha256=0c9d8a0e9230ec337d7e43014280fe6c0b7773adadbfe5f1d9f764d37f072137
-docx2txt @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/docx2txt-0.8.tar.gz#sha256=2c06d98d7cfe2d3947e5760a57d924e3ff07745b379c8737723922e7009236e5
+./config/docx_mailmerge-0.5.0-py2.py3-none-any.whl#sha256=0c9d8a0e9230ec337d7e43014280fe6c0b7773adadbfe5f1d9f764d37f072137
+./config/docx2txt-0.8.tar.gz#sha256=2c06d98d7cfe2d3947e5760a57d924e3ff07745b379c8737723922e7009236e5
 docxcompose==1.4.0
-docxtpl @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/docxtpl-0.16.5-py2.py3-none-any.whl#sha256=09b94f0cbbcc0384811be1b6a3ccd78950eac12f9bf23956e1309f5f0c879bb1
+./config/docxtpl-0.16.5-py2.py3-none-any.whl#sha256=09b94f0cbbcc0384811be1b6a3ccd78950eac12f9bf23956e1309f5f0c879bb1
 Eel==0.16.0
 et-xmlfile==1.1.0
 filelock==3.12.2
@@ -31,14 +31,14 @@ future==0.18.3
 gevent==22.10.2
 gevent-websocket==0.10.1
 greenlet==2.0.2
-gunicorn @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/gunicorn-20.1.0-py3-none-any.whl#sha256=9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e
+./config/gunicorn-20.1.0-py3-none-any.whl#sha256=9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e
 huggingface-hub==0.15.1
 idna==3.4
 jellyfish==0.11.2
 Jinja2==3.1.2
 joblib==1.2.0
-keybert @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/keybert-0.7.0.tar.gz#sha256=b5003d10a5bfa1f7db3cb86e04f33b59939ae09095c093228713bb08499f4555
-Kivy @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/Kivy-2.1.0-cp39-cp39-win_amd64.whl#sha256=260f88aff72ba2269e6733598e9081533072769ed0bec2d020a8bd010d1b6751
+./config/keybert-0.7.0.tar.gz#sha256=b5003d10a5bfa1f7db3cb86e04f33b59939ae09095c093228713bb08499f4555
+./config/Kivy-2.1.0-cp39-cp39-win_amd64.whl#sha256=260f88aff72ba2269e6733598e9081533072769ed0bec2d020a8bd010d1b6751
 kivy-deps.angle==0.3.3
 kivy-deps.glew==0.3.1
 kivy-deps.sdl2==0.4.5
@@ -51,51 +51,51 @@ mdurl==0.1.2
 mpmath==1.3.0
 msal==1.22.0
 murmurhash==1.0.9
-mysql-connector-python @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/mysql_connector_python-8.0.33-cp39-cp39-win_amd64.whl#sha256=3bedf8265fb31698e4144ca54e241e3386802c3a437745b1a536a74cbe7e4fb9
+./config/mysql_connector_python-8.0.33-cp39-cp39-win_amd64.whl#sha256=3bedf8265fb31698e4144ca54e241e3386802c3a437745b1a536a74cbe7e4fb9
 networkx==3.1
 nltk==3.8.1
 numpy==1.24.3
-Office365-REST-Python-Client @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/Office365_REST_Python_Client-2.3.13-py3-none-any.whl#sha256=7e408f195aeb3a5c7f8f4cbab8ecadc6c1471258e42ab412b9afa958ee3e1fab
-openpyxl @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/openpyxl-3.1.2-py2.py3-none-any.whl#sha256=f91456ead12ab3c6c2e9491cf33ba6d08357d802192379bb482f1033ade496f5
+./config/Office365_REST_Python_Client-2.3.13-py3-none-any.whl#sha256=7e408f195aeb3a5c7f8f4cbab8ecadc6c1471258e42ab412b9afa958ee3e1fab
+./config/openpyxl-3.1.2-py2.py3-none-any.whl#sha256=f91456ead12ab3c6c2e9491cf33ba6d08357d802192379bb482f1033ade496f5
 packaging==23.1
-pandas @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/pandas-2.0.2-cp39-cp39-win_amd64.whl#sha256=77550c8909ebc23e56a89f91b40ad01b50c42cfbfab49b3393694a50549295ea
+./config/pandas-2.0.2-cp39-cp39-win_amd64.whl#sha256=77550c8909ebc23e56a89f91b40ad01b50c42cfbfab49b3393694a50549295ea
 pathy==0.10.1
 pefile==2023.2.7
 Pillow==9.5.0
-pipenv @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/pipenv-2023.2.4-py3-none-any.whl#sha256=dd62abe8efa34b3d13e47b226bd151a1110dc5591557c559beca7d52efb55c18
-pipreqs @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/pipreqs-0.4.11-py2.py3-none-any.whl#sha256=1510a91ae73ef6a8e2f24ffc8751132251cd61a01296d61538f37d1491841640
+./config/pipenv-2023.2.4-py3-none-any.whl#sha256=dd62abe8efa34b3d13e47b226bd151a1110dc5591557c559beca7d52efb55c18
+./config/pipreqs-0.4.11-py2.py3-none-any.whl#sha256=1510a91ae73ef6a8e2f24ffc8751132251cd61a01296d61538f37d1491841640
 platformdirs==3.8.0
 preshed==3.0.8
 protobuf==3.20.3
-py2exe @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/py2exe-0.13.0.0-cp39-cp39-win_amd64.whl#sha256=0094278df7af3ff0f8603067a2c19b9bc6beecd6a804b87c14b2f1d16da260f4
+./config/py2exe-0.13.0.0-cp39-cp39-win_amd64.whl#sha256=0094278df7af3ff0f8603067a2c19b9bc6beecd6a804b87c14b2f1d16da260f4
 pycparser==2.21
 pydantic==1.10.9
 Pygments==2.15.1
-pyinstaller @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/config/pyinstaller-5.12.0-py3-none-win_amd64.whl#sha256=62d75bb70cdbeea1a0d55067d7201efa2f7d7c19e56c241291c03d551b531684
+./config/config/pyinstaller-5.12.0-py3-none-win_amd64.whl#sha256=62d75bb70cdbeea1a0d55067d7201efa2f7d7c19e56c241291c03d551b531684
 pyinstaller-hooks-contrib==2023.4
 PyJWT==2.7.0
 pyparsing==3.1.0
-PyPDF2 @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/pypdf2-3.0.1-py3-none-any.whl
+./config/pypdf2-3.0.1-py3-none-any.whl
 pypiwin32==223
 python-dateutil==2.8.2
-python-docx @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/python-docx-0.8.11.tar.gz#sha256=1105d233a0956dd8dd1e710d20b159e2d72ac3c301041b95f4d4ceb3e0ebebc4
+./config/python-docx-0.8.11.tar.gz#sha256=1105d233a0956dd8dd1e710d20b159e2d72ac3c301041b95f4d4ceb3e0ebebc4
 pytz==2023.3
 pywin32==306
 pywin32-ctypes==0.2.2
 PyYAML==6.0
 regex==2023.6.3
 requests==2.27.1
-rethinkdb @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/rethinkdb-2.4.8-py2.py3-none-any.whl#sha256=f491e016be554d0ceb4b7bbea22930b1e33aa48d20217207bf72bb355f06834e
+./config/rethinkdb-2.4.8-py2.py3-none-any.whl#sha256=f491e016be554d0ceb4b7bbea22930b1e33aa48d20217207bf72bb355f06834e
 rich==13.4.2
 safetensors==0.3.1
 scikit-learn==1.2.2
 scipy==1.10.1
 segtok==1.5.11
-sentence-transformers @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/sentence-transformers-2.2.2.tar.gz#sha256=dbc60163b27de21076c9a30d24b5b7b6fa05141d68cf2553fa9a77bf79a29136
+./config/sentence-transformers-2.2.2.tar.gz#sha256=dbc60163b27de21076c9a30d24b5b7b6fa05141d68cf2553fa9a77bf79a29136
 sentencepiece==0.1.99
 six==1.16.0
 smart-open==6.3.0
-spacy @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/spacy-3.5.3-cp39-cp39-win_amd64.whl#sha256=c28b1bfda0d5b0abba961c8679e21767493d48572c94d54acb4018d27f89f4e1
+./config/spacy-3.5.3-cp39-cp39-win_amd64.whl#sha256=c28b1bfda0d5b0abba961c8679e21767493d48572c94d54acb4018d27f89f4e1
 spacy-legacy==3.0.12
 spacy-loggers==1.0.4
 sqlparse==0.4.4
@@ -117,7 +117,7 @@ virtualenv==20.23.1
 virtualenv-clone==0.5.7
 wasabi==1.1.2
 whichcraft==0.6.1
-yake @ file:///C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/yake-0.4.8-py2.py3-none-any.whl#sha256=d46793266826468b4aecb668c51e677b7bc304f1bd3a15e100e324852ec5a0c3
+./config/yake-0.4.8-py2.py3-none-any.whl#sha256=d46793266826468b4aecb668c51e677b7bc304f1bd3a15e100e324852ec5a0c3
 yarg==0.1.9
 zope.event==5.0
 zope.interface==6.0
