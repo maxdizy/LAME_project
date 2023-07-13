@@ -1,6 +1,6 @@
 altgraph==0.17.3
 asgiref==3.7.2
-auto-py-to-exe @ file:/config/auto_py_to_exe-2.34.0-py2.py3-none-any.whl
+C:/Users/e443176/Documents/CLASSIFIED/LAME_project/config/auto_py_to_exe-2.34.0-py2.py3-none-any.whl
 Babel==2.12.1
 blis==0.7.9
 bottle==0.12.25
