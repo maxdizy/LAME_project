@@ -1,0 +1,8 @@
+*.psd
+*.pdf
+/doc
+/test
+/spec
+/./usr
+/./var
+/./etc
