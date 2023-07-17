@@ -31,7 +31,7 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://lame-b9e2e1e6b25e.herokuapp.com']
 
 # server {
 #     listen 80 default_server;
