@@ -4,11 +4,5 @@
 /test
 /spec
 /./usr
-/.usr/lib
-/.usr/share
-/.usr/bin
-/./usr/lib
 /./var
-/./usr/include
-/./usr/sbin
 /./etc
