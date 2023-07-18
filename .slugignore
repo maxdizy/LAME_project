@@ -1,8 +1,37 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+./log
+./tmp
+./storage
+./public
+./node_modules
+./yarn-error.log
+./heroku
+./vendor
+./vendor/bundle
+./kevin
+./kevin.pug
+./package-lock.json
+./config/environments/database.yml
+./package-lock.json
+./vendor/database.yml
+./public/packs
+./public/packs-test
+./yarn-error.log
+./yarn-debug.log
+.yarn-integrity
+
 *.psd
 *.pdf
 /doc
 /test
 /spec
-/./usr/*
-/./var/*
-/./etc/*
+./usr/*
+./var/*
+./etc/*
