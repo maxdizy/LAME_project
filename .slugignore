@@ -3,6 +3,6 @@
 /doc
 /test
 /spec
-/./usr/
-/./var/
-/./etc/
+/./usr/*
+/./var/*
+/./etc/*
