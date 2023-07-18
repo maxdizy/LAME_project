@@ -12,10 +12,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import psycopg2
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -27,11 +27,12 @@ with open("data/key.txt") as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE=True
+SESSION_COOKIE_SECURE=True
+SECURE_SSL_REDIRECT=True
 
-ALLOWED_HOSTS = ['https://lame-b9e2e1e6b25e.herokuapp.com']
+#ALLOWED_HOSTS = ['https://lame-b9e2e1e6b25e.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 # server {
 #     listen 80 default_server;
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'MADI.apps.MadiConfig',
     'HOME.apps.HomeConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -86,12 +88,25 @@ WSGI_APPLICATION = 'LAME.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'dfd779b7nskdrk',
+            'USER': 'zearswbhpbqnmv',
+            'PASSWORD': '93aa0c65115d6a1d61a0b284c541a3a970b4e1f965e8e9544b95129b504262bf',
+            'HOST': 'ec2-52-205-45-222.compute-1.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
 
 
 # Password validation
@@ -128,17 +143,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-#
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'MADI/static')]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'MADI/static')
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'MADI\\media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-#
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -147,3 +157,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'HOME-home'
 LOGIN_URL = 'HOME-login'
+
+AWS_STORAGE_BUCKET_NAME = 'lame-bucket'
+AWS_ACCESS_KEY_ID = 'AKIA4KQG7XH5OVEP7WOR'
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
