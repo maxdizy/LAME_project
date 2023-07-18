@@ -1,1 +1,1 @@
-web: gunicorn LAME.wsgi
+web: gunicorn LAME.wsgi:application --log-file -
