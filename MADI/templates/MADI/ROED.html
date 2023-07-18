@@ -1,0 +1,37 @@
+{% extends "MADI/base.html" %}
+{% block content %}
+<table cellpadding="0" cellspacing="0" class="es-content" align="center">
+  <tr>
+    <td align="center" style="background-color: #efefef" bgcolor="#efefef">
+    <table bgcolor="transparent" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="900" style="border-width: 10px;border-style: solid;border-color: transparent;background-color: transparent">
+      <tr>
+        <td class="es-p20t es-p20r es-p10l" align="left">
+        <table cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td width="852" align="center" valign="top">
+            <table cellpadding="0" cellspacing="0" width="100%" role="presentation">
+              <tr>
+                <td align="left" class="es-p40r"><h1 style="font-family: 'merriweather sans', 'helvetica neue', helvetica, arial, sans-serif;text-align: left;color: #333333;line-height: 120%">potential <span style="color:#e69138">ROED</span></h1><p style="color: #000000"><br></p><p style="color: #000000">&nbsp; &nbsp;please fill all fields below&emsp;&emsp;&emsp;&emsp;<span style="color:#ff0000">{{  warning  }}</span></p></td>
+              </tr>
+              <tr>
+                <td align="center" class="es-p5" style="font-size:0">
+                <table border="0" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                  <tr>
+                    <td style="border-bottom: 1px solid #cccccc;background: unset;height:1px;width:100%;margin:0px 0px 0px 0px"></td>
+                  </tr>
+                  {% for ROED in potROED %}
+                    <h2>{{ ROED }}</h2>
+                  {% endfor %}
+                  <tr>
+                    <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><a href="{% url 'MADI-createERF' %}" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138">Create ERF</a></span></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+{% endblock content %}
