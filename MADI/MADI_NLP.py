@@ -30,27 +30,27 @@ See Figure 4 for damage dimensions.
 Suggested Action: Cascade recommends that LM provide the blend limits of the discrepant part if within limits, then NDT HFEC, do the surface finish per SRM and then leave as is. Otherwise, Cascade requests suitable instructions for in-house repair. 
 '''
 
-def trainModel(BuildTrainingSet):
-    #build training data on testData
-    if BuildTrainingSet:
-        wordMeta = getWordMeta(testData)
-        df = pd.DataFrame(wordMeta)
-        df.to_excel('data.xlsx')
-        return
+# def trainModel(BuildTrainingSet):
+#     #build training data on testData
+#     if BuildTrainingSet:
+#         wordMeta = getWordMeta(testData)
+#         df = pd.DataFrame(wordMeta)
+#         df.to_excel('data.xlsx')
+#         return
     
-    #configure df
-    x = pd.read_excel((r'data\trainingdata.xlsx'))
-    x = x.rename(columns={0:'word', 1:'prev', 2:'tag', 3:'toInt', 4:'len', 5:'y'})
-    x['prev'] = x['prev'].fillna(0)
+#     #configure df
+#     x = pd.read_excel((r'data\trainingdata.xlsx'))
+#     x = x.rename(columns={0:'word', 1:'prev', 2:'tag', 3:'toInt', 4:'len', 5:'y'})
+#     x['prev'] = x['prev'].fillna(0)
     
-    y = x['y']
-    x = x.drop('y', axis=1)
-    meta = x.drop('word', axis=1)
+#     y = x['y']
+#     x = x.drop('y', axis=1)
+#     meta = x.drop('word', axis=1)
 
-    #train model
-    rf_model = RandomForestClassifier(n_estimators=50, random_state=44)
-    rf_model.fit(meta, y)
-    pickle.dump(rf_model, open(r'data\NLPmodel.pickle', "wb"))
+#     #train model
+#     rf_model = RandomForestClassifier(n_estimators=50, random_state=44)
+#     rf_model.fit(meta, y)
+#     pickle.dump(rf_model, open(r'data\NLPmodel.pickle', "wb"))
 
 def getWordMeta(data):
     #set variables
@@ -144,4 +144,4 @@ def keywords(data):
         keywordList.append(kw[0])
     return keywordList
 
-if train : trainModel(BuildTrainingSet)
+#if train : trainModel(BuildTrainingSet)

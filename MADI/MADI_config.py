@@ -1,4 +1,5 @@
 import os
+import io
 import sys
 import json
 import string
@@ -6,10 +7,10 @@ from PyPDF2 import PdfReader, PdfWriter
 from mailmerge import MailMerge
 from datetime import date
 import shutil
-import docx2txt
 from .MADI_NLP import getPNs, keywords
 from django.conf import settings
 from django.core.files.storage import Storage
+from LAME import settings
 
 def readIRF(f, CN):
     #read pdf and get field
@@ -20,8 +21,7 @@ def readIRF(f, CN):
     fields = reader.get_form_text_fields()
     dict(fields)
 
-    with open(r'data\database.json', 'r') as db:
-        database = json.load(db)
+    database = json.load(settings.get_file('data/database.json'))
     
     #find PNs
     potROED = []
@@ -61,21 +61,21 @@ def readIRF(f, CN):
     database.update({CN: [PNs, KWs]})
 
     #push potROED
-    with open('data\potROED', 'w') as prdb:
-        json.dump(potROED, prdb)
+    settings.push_json('data/potROED', potROED)
+    #json.dump(potROED, settings.push_file('data/potROED', potROED))
 
     #push database
-    with open('data\database.json', 'w') as db:
-        json.dump(database, db)
+    settings.push_json('data/database.json', database)
+    #json.dump(potROED, settings.push_file('data/database.json', database))
 
     return CN, fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROED
 
 def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IRFfile):
     #pull ERF Template
     if mod:
-        document = MailMerge(r'data/MADI ERF Template for Mod.docx')
+        document = MailMerge(io.BytesIO(settings.get_file('data/MADI ERF Template for Mod.docx').read()))
     else:
-        document = MailMerge(r'data/MADI ERF Template.docx')
+        document = MailMerge(io.BytesIO(settings.get_file('data/MADI ERF Template.docx').read()))
     #setup basic fields
     tails = {'601': '5626', '602': '5627', '603': '5635', '604': '5636', '605': '5637', '606' : '5649', '607': '5650', '608': '5651', '609': '5652', '610': '5664', '611': '5665', '612': '5666', '613': '5667', '614': '5687', '615': '5688', '616': '5689', '617': '5690'}
     cat = 'Choose an item.'
@@ -121,22 +121,21 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IR
         Choose=cat)
 
     #push populated ERF
-    file = open("data/ERFL.txt","r")
+    ERFL = settings.get_file('data/ERFL.txt').read().decode()
+    print(ERFL)
     SD = str(SD.translate(str.maketrans('','',string.punctuation)))
-    folLoc = file.readline() + '\\' + str(CN) + '-' + str(AC) + '-' + SD 
+    folLoc = ERFL + '\\' + str(CN) + '-' + str(AC) + '-' + SD 
     try:
         os.makedirs(folLoc)
     except:
         print("Folder already exists; Pushing to folder.")
     filLoc = folLoc + '\\' + str(CN) + '-' + str(AC) + '-' + SD + '.docx'
     document.write(filLoc)
-    file.close()
     os.startfile(filLoc)
 
-    print(Storage.get_valid_name(Storage, IRFfile.name))
-    #move IRF to folder
-    IRFpath = (settings.MEDIA_ROOT + '\\' + Storage.get_valid_name(Storage, IRFfile.name))
-    shutil.copy(IRFpath, folLoc)
+    # #move IRF to folder
+    # IRFpath = (settings.MEDIA_ROOT + '\\' + Storage.get_valid_name(Storage, IRFfile))
+    # shutil.copy(IRFpath, folLoc)
 
     #create DART form
     if dart : createDart(AC, D, PN, folLoc, CN)

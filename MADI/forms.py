@@ -1,22 +1,20 @@
 from django.forms import ModelForm
 from django import forms
 from .models import config, IRFdata
+from LAME import settings
 
 class uploadForm(ModelForm):
     caseNo = forms.TextInput()
     ERFpath = forms.TextInput()
     dart = forms.BooleanField(required=False)
     mod = forms.BooleanField(required=False)
-    file = forms.FileField()
     class Meta:
         model = config
-        fields = ['caseNo', 'ERFpath', 'dart', 'mod', 'file']
+        fields = ['caseNo', 'ERFpath', 'dart', 'mod']
 
     def __init__(self, *args, **kwargs):
         super(uploadForm, self).__init__(*args, **kwargs)
-        with open("data\ERFL.txt", "r") as file:
-                ERFL = file.readline()
-        self.fields["ERFpath"].initial = ERFL
+        self.fields["ERFpath"].initial = settings.get_file('data/ERFL.txt').read().decode()
 
 class IRFdataForm(ModelForm):
     CN = forms.TextInput()
@@ -35,8 +33,6 @@ class IRFdataForm(ModelForm):
 
     def __init__(self, CN, tail, IRFTitle, description, affected, IRFNo, ROED, dart, mod, fileName, *args, **kwargs):
         super(IRFdataForm, self).__init__(*args, **kwargs)
-        with open("data\ERFL.txt", "r") as file:
-                ERFL = file.readline()
         self.fields["CN"].initial = CN
         self.fields["tail"].initial = tail
         self.fields["IRFTitle"].initial = IRFTitle

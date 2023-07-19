@@ -5,7 +5,6 @@ class config(models.Model):
     ERFpath = models.CharField(max_length=200)
     dart = models.BooleanField(null=True)
     mod = models.BooleanField(null=True)
-    file = models.FileField(null=True)
 
 class IRFdata(models.Model):
     CN = models.CharField(max_length=200)
