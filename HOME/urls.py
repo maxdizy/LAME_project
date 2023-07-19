@@ -2,8 +2,9 @@ from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 import random
+from LAME import settings
 
-joke = random.choice(open('data/jokes.txt', encoding="utf8").readlines())
+joke = random.choice(settings.get_file('data/jokes.txt').read().decode().splitlines())
 joke = joke.split('<>')
 hook = joke[0]
 punch = joke[1]
