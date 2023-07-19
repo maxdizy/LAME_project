@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 Django settings for LAME project.
 
@@ -361,4 +360,3 @@ AWS_DEFAULT_ACL = None
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
->>>>>>> cd2e3a256b67eda724cc530fb754e0bc76cb28ab
