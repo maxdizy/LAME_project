@@ -13,10 +13,10 @@ def home(request):
     return render(request, 'HOME/home.html', {'hook' : hook, 'punch' : punch})
 
 def planes(request):
-    return render(request, 'HOME/planes.html')
+    return render(request, 'HOME/planes.html', {'hook' : hook, 'punch' : punch})
 
 def contactAdmin(request):
-    return render(request, 'HOME/contactAdmin.html')
+    return render(request, 'HOME/contactAdmin.html', {'hook' : hook, 'punch' : punch})
 
 @login_required
 def profile(request):

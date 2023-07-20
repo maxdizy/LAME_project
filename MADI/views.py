@@ -32,21 +32,22 @@ def upload(request):
             if form.is_valid():
                 form.save()
             request.user.first_name = "paul"
-            print("REQUEST SAYS ... " + request.POST.get("ERFpath"))
             settings.push_file('data/ERFL.txt', request.POST.get("ERFpath"))
-            CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROED = readIRF(request.FILES.get('file'), request.POST.get('caseNo'))
+            global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, dart, mod, file
+            CN, file, dart, mod = request.POST.get('caseNo'), request.FILES.get('file'), request.POST.get("dart"), request.POST.get("mod")
+            tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs = readIRF(file, CN)
             if ROED:
                 # data = IRFdataForm(CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROED, request.POST.get("dart"), request.POST.get("mod"), request.FILES.get('file').name)
                 # print(data)
                 # if data.is_valid():
                 #     data.save()
-                return render(request, 'MADI/ROED.html', {'potROED' : potROED, 'hook' : hook, 'punch' : punch})
+                return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'hook' : hook, 'punch' : punch})
             else:  
-                writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROED, request.POST.get("dart"), request.POST.get("mod"), request.FILES.get('file').name)
+                writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, file.name)
         else:
             return render(request, 'MADI/home.html', {'form' : uploadForm, 'hook' : hook, 'punch' : punch, 'warning' : 'ERROR: Some fields were not filled out correctly. Please make sure your ERF path is valid.'})
     return redirect('HOME-home')
 
 def createERF(request):
-    return HttpResponse(config.objects.latest('caseNo'))
-    #writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROED, request.POST.get("dart"), request.POST.get("mod"), request.FILES.get('file'))
+    writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, file.name)
+    return redirect('HOME-home')

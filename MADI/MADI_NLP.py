@@ -15,6 +15,7 @@ from sklearn import preprocessing
 import pickle
 import json
 import yake
+from LAME import settings
 #from .MADI_config import readIRF, writeERF
 
 train = True
@@ -120,7 +121,12 @@ def getPNs(data):
         meta = meta.astype(float)
 
         #predict PN
-        model = pickle.load(open(r'data\NLPmodel.pickle', "rb"))
+        try:
+            model = pickle.load(open(r'data_old/NLPmodel.pickle', "rb"))
+        except:
+            print("model not found")
+            pass
+        #model = pickle.load(settings.get_file('data/NLPmodel.pickle').read())
         for i in range(len(x.index)-1):
             if model.predict(meta.iloc[[i]]) == 1:
                 #create list of tuples

@@ -24,7 +24,7 @@ def readIRF(f, CN):
     database = json.load(settings.get_file('data/database.json'))
     
     #find PNs
-    potROED = []
+    potROEDs = []
     IRFTitle = fields['IRF Title']
     description = fields['Text1']
     PNs = []
@@ -51,24 +51,22 @@ def readIRF(f, CN):
     for PN in PNs:
         for case in database:
             if PN in database[case][0]:
-                potROED.append(case)
+                potROEDs.append({'caseNo' : case, 'partNos' : ', '.join(database[case][0]), 'keyWords' : ', '.join(database[case][1])})
 
     #find if potential ROED
     ROED = False
-    if len(potROED) != 0: ROED = True
+    if len(potROEDs) != 0: ROED = True
 
     #update database
     database.update({CN: [PNs, KWs]})
 
     #push potROED
-    settings.push_json('data/potROED', potROED)
-    #json.dump(potROED, settings.push_file('data/potROED', potROED))
+    settings.push_json('data/potROED', potROEDs)
 
     #push database
     settings.push_json('data/database.json', database)
-    #json.dump(potROED, settings.push_file('data/database.json', database))
 
-    return CN, fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROED
+    return fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROEDs
 
 def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IRFfile):
     #pull ERF Template
@@ -89,7 +87,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IR
     if ROED: 
         cat = 'Category 5 : Repeat Non-Standard Repairs'
         for case in potROED:
-            ref += case + '; 	Previous Similar Repair\n'
+            ref += case['caseNo'] + '; 	Previous Similar Repair\n'
         if new_ROED_file:
             with open('data/ROEDlocation.txt', 'r') as rf:
                     ROEDfile_path = rf.read()

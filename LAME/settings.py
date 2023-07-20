@@ -15,6 +15,7 @@ import os
 import psycopg2
 import boto3
 import json
+import pickle
 from django.core.files.storage import default_storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,8 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-AWS_ACCESS_KEY_ID = 'AKIA4KQG7XH5OVEP7WOR'
-AWS_SECRET_ACCESS_KEY = '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'
+
+#get environment variables
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+
 
 s3 = boto3.resource('s3',
 aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -31,13 +36,19 @@ aws_secret_access_key= AWS_SECRET_ACCESS_KEY,
 verify=False)
 
 def get_file(file_path):
-    return s3.Bucket('lame-bucket').Object(file_path).get()['Body']
+    return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path).get()['Body']
 
 def push_file(file_path, contents):
-    return s3.Bucket('lame-bucket').Object(file_path).put(Body=contents)
+    return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path).put(Body=contents)
 
 def push_json(file_path, contents):
-    return s3.Bucket('lame-bucket').Object(file_path).put(Body=(bytes(json.dumps(contents).encode('UTF-8'))))
+    return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path).put(Body=(bytes(json.dumps(contents).encode('UTF-8'))))
+
+def download_pickle(file_path):
+    s3.download_file(AWS_STORAGE_BUCKET_NAME, file_path, file_path)
+    with open(file_path, "rb") as file:
+            return pickle.load(file)
+
 
 SECRET_KEY = get_file('data/key.txt').read().decode()
 
@@ -160,13 +171,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/MADI/static/'
+STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 
 if DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 else:
     STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static'),
+        os.path.join(BASE_DIR, 'static/'),
     )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -179,10 +190,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'HOME-home'
 LOGIN_URL = 'HOME-login'
-
-AWS_STORAGE_BUCKET_NAME = 'lame-bucket'
-AWS_ACCESS_KEY_ID = 'AKIA4KQG7XH5OVEP7WOR'
-AWS_SECRET_ACCESS_KEY = '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'
 
 AWS_DEFAULT_ACL = None
 
