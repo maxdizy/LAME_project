@@ -15,7 +15,6 @@ from sklearn import preprocessing
 import pickle
 import json
 import yake
-from LAME import settings
 #from .MADI_config import readIRF, writeERF
 
 train = True

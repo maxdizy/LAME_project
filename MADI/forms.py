@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from .models import config, IRFdata
-from LAME import settings
+from LAME.settings import get_file
 
 class uploadForm(ModelForm):
     caseNo = forms.TextInput()
@@ -14,7 +14,7 @@ class uploadForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(uploadForm, self).__init__(*args, **kwargs)
-        self.fields["ERFpath"].initial = settings.get_file('data/ERFL.txt').read().decode()
+        self.fields["ERFpath"].initial = get_file('data/ERFL.txt').read().decode()
 
 class IRFdataForm(ModelForm):
     CN = forms.TextInput()

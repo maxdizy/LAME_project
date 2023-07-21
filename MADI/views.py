@@ -10,9 +10,9 @@ from .models import IRFdata
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from LAME import settings
+from LAME.settings import get_file, push_file
 
-joke = random.choice(settings.get_file('data/jokes.txt').read().decode().splitlines())
+joke = random.choice(get_file('data/jokes.txt').read().decode().splitlines())
 joke = joke.split('<>')
 hook = joke[0]
 punch = joke[1]
@@ -32,7 +32,7 @@ def upload(request):
             if form.is_valid():
                 form.save()
             request.user.first_name = "paul"
-            settings.push_file('data/ERFL.txt', request.POST.get("ERFpath"))
+            push_file('data/ERFL.txt', request.POST.get("ERFpath"))
             global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, dart, mod, file
             CN, file, dart, mod = request.POST.get('caseNo'), request.FILES.get('file'), request.POST.get("dart"), request.POST.get("mod")
             tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs = readIRF(file, CN)

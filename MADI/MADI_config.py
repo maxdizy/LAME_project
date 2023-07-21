@@ -10,7 +10,7 @@ import shutil
 from .MADI_NLP import getPNs, keywords
 from django.conf import settings
 from django.core.files.storage import Storage
-from LAME import settings
+from LAME.settings import get_file, push_file, push_json
 
 def readIRF(f, CN):
     #read pdf and get field
@@ -21,7 +21,7 @@ def readIRF(f, CN):
     fields = reader.get_form_text_fields()
     dict(fields)
 
-    database = json.load(settings.get_file('data/database.json'))
+    database = json.load(get_file('data/database.json'))
     
     #find PNs
     potROEDs = []
@@ -61,19 +61,19 @@ def readIRF(f, CN):
     database.update({CN: [PNs, KWs]})
 
     #push potROED
-    settings.push_json('data/potROED', potROEDs)
+    push_json('data/potROED', potROEDs)
 
     #push database
-    settings.push_json('data/database.json', database)
+    push_json('data/database.json', database)
 
     return fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROEDs
 
 def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IRFfile):
     #pull ERF Template
     if mod:
-        document = MailMerge(io.BytesIO(settings.get_file('data/MADI ERF Template for Mod.docx').read()))
+        document = MailMerge(io.BytesIO(get_file('data/MADI ERF Template for Mod.docx').read()))
     else:
-        document = MailMerge(io.BytesIO(settings.get_file('data/MADI ERF Template.docx').read()))
+        document = MailMerge(io.BytesIO(get_file('data/MADI ERF Template.docx').read()))
     #setup basic fields
     tails = {'601': '5626', '602': '5627', '603': '5635', '604': '5636', '605': '5637', '606' : '5649', '607': '5650', '608': '5651', '609': '5652', '610': '5664', '611': '5665', '612': '5666', '613': '5667', '614': '5687', '615': '5688', '616': '5689', '617': '5690'}
     cat = 'Choose an item.'
@@ -119,7 +119,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IR
         Choose=cat)
 
     #push populated ERF
-    ERFL = settings.get_file('data/ERFL.txt').read().decode()
+    ERFL = get_file('data/ERFL.txt').read().decode()
     print(ERFL)
     SD = str(SD.translate(str.maketrans('','',string.punctuation)))
     folLoc = ERFL + '\\' + str(CN) + '-' + str(AC) + '-' + SD 

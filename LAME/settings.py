@@ -53,7 +53,7 @@ def download_pickle(file_path):
 SECRET_KEY = get_file('data/key.txt').read().decode()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 CSRF_COOKIE_SECURE=False
 SESSION_COOKIE_SECURE=False
@@ -167,9 +167,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 
@@ -177,7 +176,7 @@ if DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 else:
     STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static/'),
+        os.path.join(BASE_DIR, 'static\\'),
     )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -192,6 +191,3 @@ LOGIN_REDIRECT_URL = 'HOME-home'
 LOGIN_URL = 'HOME-login'
 
 AWS_DEFAULT_ACL = None
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
