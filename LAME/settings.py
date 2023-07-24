@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-import psycopg2
+#import psycopg2
 import boto3
 import json
 import pickle
@@ -31,9 +31,9 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 
 s3 = boto3.resource('s3',
-aws_access_key_id=AWS_ACCESS_KEY_ID,
-aws_secret_access_key= AWS_SECRET_ACCESS_KEY,
-verify=False)
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key= AWS_SECRET_ACCESS_KEY,
+    verify=False)
 
 def get_file(file_path):
     return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path).get()['Body']
