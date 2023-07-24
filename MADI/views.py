@@ -8,7 +8,6 @@ from MADI.forms import IRFdataForm
 from .models import config
 from .models import IRFdata
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from LAME.settings import get_file, push_file
 
@@ -18,12 +17,10 @@ hook = joke[0]
 punch = joke[1]
 
 @login_required
-@csrf_exempt
 def home(request):
     return render(request, 'MADI/home.html', {'form' : uploadForm, 'hook' : hook, 'punch' : punch, 'warning' : ''})
 
 @login_required
-@csrf_exempt
 def upload(request):
     if request.method == 'POST':
         form = uploadForm(request.POST, request.FILES)
