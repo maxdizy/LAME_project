@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-#import psycopg2
+import psycopg2
 import boto3
 import json
 import pickle
@@ -55,9 +55,9 @@ SECRET_KEY = get_file('data/key.txt').read().decode()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-CSRF_COOKIE_SECURE=False
-SESSION_COOKIE_SECURE=False
-SECURE_SSL_REDIRECT=False
+CSRF_COOKIE_SECURE=True
+SESSION_COOKIE_SECURE=True
+SECURE_SSL_REDIRECT=True
 
 #ALLOWED_HOSTS = ['https://lame-b9e2e1e6b25e.herokuapp.com']
 ALLOWED_HOSTS = ['*']
@@ -128,10 +128,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'dfd779b7nskdrk',
-            'USER': 'zearswbhpbqnmv',
-            'PASSWORD': '93aa0c65115d6a1d61a0b284c541a3a970b4e1f965e8e9544b95129b504262bf',
-            'HOST': 'ec2-52-205-45-222.compute-1.amazonaws.com',
+            'NAME': 'lame-database',
+            'USER': 'postgres',
+            'PASSWORD': 'Smcs1721!',
+            'HOST': 'lame-database.cdeddgxd1mqt.us-east-1.rds.amazonaws.com',
             'PORT': '5432',
         }
     }
