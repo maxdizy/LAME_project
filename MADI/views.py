@@ -6,7 +6,6 @@ from .MADI_config import readIRF, writeERF
 from MADI.forms import uploadForm
 from MADI.forms import IRFdataForm
 from .models import config
-from .models import IRFdata
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from LAME.settings import get_file, push_file
