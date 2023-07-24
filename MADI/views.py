@@ -4,7 +4,6 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
 from .MADI_config import readIRF, writeERF
 from MADI.forms import uploadForm
-from MADI.forms import IRFdataForm
 from .models import config
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
