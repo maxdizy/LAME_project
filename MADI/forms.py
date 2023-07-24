@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import config, IRFdata
+from .models import config
 from LAME.settings import get_file
 
 class uploadForm(ModelForm):
