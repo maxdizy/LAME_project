@@ -128,7 +128,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': '-',
+            'NAME': '',
             'USER': 'postgres',
             'PASSWORD': 'Smcs1721!',
             'HOST': 'lame-database.cdeddgxd1mqt.us-east-1.rds.amazonaws.com',
