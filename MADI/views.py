@@ -28,16 +28,11 @@ def upload(request):
         if os.path.exists(request.POST.get("ERFpath")) or os.access(os.path.dirname(request.POST.get("ERFpath")), os.W_OK):
             if form.is_valid():
                 form.save()
-            request.user.first_name = "paul"
             push_file('data/ERFL.txt', request.POST.get("ERFpath"))
             global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, dart, mod, file
             CN, file, dart, mod = request.POST.get('caseNo'), request.FILES.get('file'), request.POST.get("dart"), request.POST.get("mod")
             tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs = readIRF(file, CN)
             if ROED:
-                # data = IRFdataForm(CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROED, request.POST.get("dart"), request.POST.get("mod"), request.FILES.get('file').name)
-                # print(data)
-                # if data.is_valid():
-                #     data.save()
                 return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'hook' : hook, 'punch' : punch})
             else:  
                 writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, file.name)
@@ -45,6 +40,7 @@ def upload(request):
             return render(request, 'MADI/home.html', {'form' : uploadForm, 'hook' : hook, 'punch' : punch, 'warning' : 'ERROR: Some fields were not filled out correctly. Please make sure your ERF path is valid.'})
     return redirect('HOME-home')
 
+@login_required
 def createERF(request):
     writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, file.name)
     return redirect('HOME-home')
