@@ -177,7 +177,7 @@ if DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 else:
     STATICFILES_DIRS = (
-        os.path.join(STATIC_URL, 'static/'),
+        's3://lame-bucket/static/',
     )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
