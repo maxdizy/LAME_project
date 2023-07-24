@@ -60,7 +60,7 @@ SESSION_COOKIE_SECURE=True
 SECURE_SSL_REDIRECT=True
 
 #ALLOWED_HOSTS = ['https://lame-b9e2e1e6b25e.herokuapp.com']
-ALLOWED_HOSTS = ['http://3.208.228.10:8000/', 'www.lame.digital']
+ALLOWED_HOSTS = ['*']
 
 # https://pythoncircle.com/post/697/hosting-django-app-for-free-on-amazon-aws-ec2-with-gunicorn-and-nginx/
 # server {
