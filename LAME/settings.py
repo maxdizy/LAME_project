@@ -139,7 +139,7 @@ else:
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'LAMEDB',
             'USER': 'postgres',
-            'PASSWORD': os.environ['POSTGRESQL_PASS'],
+            'PASSWORD': ssm.get_parameter(Name='POSTGRESQL_PASS', WithDecryption=True)['Parameter']['Value'],
             'HOST': 'lame-database.cdeddgxd1mqt.us-east-1.rds.amazonaws.com',
             'PORT': '5432',
         }
