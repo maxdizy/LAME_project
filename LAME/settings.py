@@ -17,6 +17,10 @@ import boto3
 import json
 import pickle
 from django.core.files.storage import default_storage
+from boto3_helper import init_aws_session
+
+session = init_aws_session()
+ssm = session.client('ssm')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,9 +29,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 #get environment variables
-AWS_STORAGE_BUCKET_NAME = os.environ['AWS_BUCKET_NAME']
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = ssm.get_parameter(Name='BUCKET_NAME', WithDecryption=True)['Parameter']['Value']
+AWS_ACCESS_KEY_ID = ssm.get_parameter(Name='ACCESS_KEY_ID', WithDecryption=True)['Parameter']['Value']
+AWS_SECRET_ACCESS_KEY = ssm.get_parameter(Name='SECRET_ACCESS_KEY', WithDecryption=True)['Parameter']['Value']
+
+# AWS_STORAGE_BUCKET_NAME = os.environ['AWS_BUCKET_NAME']
+# AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+# AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
 
 s3 = boto3.resource('s3',
