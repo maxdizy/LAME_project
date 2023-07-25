@@ -18,7 +18,8 @@ import json
 import pickle
 from django.core.files.storage import default_storage
 
-client = boto3.client('ssm')
+client = boto3.client('ssm',
+    region_name="us-east-2")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
