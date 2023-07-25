@@ -68,7 +68,7 @@ SECURE_SSL_REDIRECT=True
 
 os.environ['HTTPS'] = "on"
 
-ALLOWED_HOSTS = ['3.208.228.10:8000', 'www.lame.digital']
+ALLOWED_HOSTS = ['3.208.228.10', 'www.lame.digital', '*']
 
 # https://pythoncircle.com/post/697/hosting-django-app-for-free-on-amazon-aws-ec2-with-gunicorn-and-nginx/
 # server {
