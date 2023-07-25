@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 #get environment variables
-AWS_STORAGE_BUCKET_NAME = client.GFetParameter(Name='BUCKET_NAME', WithDecryption=True)['Parameter']['Value']
+AWS_STORAGE_BUCKET_NAME = client.GetParameter(Name='BUCKET_NAME', WithDecryption=True)['Parameter']['Value']
 AWS_ACCESS_KEY_ID = client.get_parameter(Name='ACCESS_KEY_ID', WithDecryption=True)['Parameter']['Value']
 AWS_SECRET_ACCESS_KEY = client.get_parameter(Name='SECRET_ACCESS_KEY', WithDecryption=True)['Parameter']['Value']
 
