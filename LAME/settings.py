@@ -61,9 +61,10 @@ SECRET_KEY = get_file('data/key.txt').read().decode()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_SECURE=False
 SESSION_COOKIE_SECURE=True
-SECURE_SSL_REDIRECT=False
+SECURE_SSL_REDIRECT=True
 
 ALLOWED_HOSTS = ['3.208.228.10', 'www.lame.digital']
 
