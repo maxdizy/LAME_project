@@ -61,6 +61,7 @@ SECRET_KEY = get_file('data/key.txt').read().decode()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+os.environ['wsgi.url_scheme'] = 'https'
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_SECURE=True
 SESSION_COOKIE_SECURE=True
