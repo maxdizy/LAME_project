@@ -6,7 +6,6 @@ from .MADI_config import readIRF, writeERF
 from MADI.forms import uploadForm
 from .models import config
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
 from LAME.settings import get_file, push_file
 
@@ -16,12 +15,10 @@ hook = joke[0]
 punch = joke[1]
 
 @login_required
-@csrf_protect
 def home(request):
     return render(request, 'MADI/home.html', {'form' : uploadForm, 'hook' : hook, 'punch' : punch, 'warning' : ''})
 
 @login_required
-@csrf_protect
 def upload(request):
     if request.method == 'POST':
         form = uploadForm(request.POST, request.FILES)
@@ -42,7 +39,6 @@ def upload(request):
     return redirect('HOME-home')
 
 @login_required
-@csrf_protect
 def createERF(request):
     writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, file.name)
     return redirect('HOME-home')
