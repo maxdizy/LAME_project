@@ -66,9 +66,7 @@ CSRF_COOKIE_SECURE=True
 SESSION_COOKIE_SECURE=True
 SECURE_SSL_REDIRECT=True
 
-CSRF_TRUSTED_ORIGINS = ['https://*.lame.digital','http://3.208.228.10:8443']
-
-os.environ['HTTPS'] = "on"
+#CSRF_TRUSTED_ORIGINS = ['https://*.lame.digital','https://3.208.228.10:8000']
 
 ALLOWED_HOSTS = ['3.208.228.10', 'www.lame.digital', '*']
 
