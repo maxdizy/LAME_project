@@ -61,13 +61,9 @@ SECRET_KEY = get_file('data/key.txt').read().decode()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-os.environ['wsgi.url_scheme'] = 'https'
-CORS_ALLOW_CREDENTIALS = True
-CSRF_COOKIE_SECURE=True
-SESSION_COOKIE_SECURE=True
-SECURE_SSL_REDIRECT=True
-
-#CSRF_TRUSTED_ORIGINS = ['https://*.lame.digital','https://3.208.228.10:8000']
+CSRF_COOKIE_SECURE=False
+SESSION_COOKIE_SECURE=False
+SECURE_SSL_REDIRECT=False
 
 ALLOWED_HOSTS = ['3.208.228.10', 'www.lame.digital', '*']
 
@@ -181,13 +177,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
-
-if DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-else:
-    STATICFILES_DIRS = (
-        os.path.join(STATIC_URL, 'static/'),
-    )
+STATIC_ROOT = '/var/www/LAME_project/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
