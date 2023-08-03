@@ -23,7 +23,7 @@ def upload(request):
     if request.method == 'POST':
         form = uploadForm(request.POST, request.FILES)
         #does ERFpath exist or is writable?
-        print(request.POST.get("ERFpath"))
+        print(type(request.POST.get("ERFpath")))
         if os.path.exists(request.POST.get("ERFpath")):
             print("TRUE TRUE TRUE")
             if form.is_valid():
