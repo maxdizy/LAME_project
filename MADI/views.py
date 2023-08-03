@@ -34,8 +34,8 @@ def upload(request):
             return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'hook' : hook, 'punch' : punch})
         else:  
             writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, file.name)
-        #else:
-            #return render(request, 'MADI/home.html', {'form' : uploadForm, 'hook' : hook, 'punch' : punch, 'warning' : 'ERROR: Some fields were not filled out correctly. Please make sure your ERF path is valid.'})
+        # else:
+        #     return render(request, 'MADI/home.html', {'form' : uploadForm, 'hook' : hook, 'punch' : punch, 'warning' : 'ERROR: Some fields were not filled out correctly. Please make sure your ERF path is valid.'})
     return redirect('HOME-home')
 
 @login_required
