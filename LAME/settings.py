@@ -61,11 +61,9 @@ SECRET_KEY = get_file('data/key.txt').read().decode()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-CSRF_COOKIE_SECURE=True
-SESSION_COOKIE_SECURE=True
-SECURE_SSL_REDIRECT=True
-SECURE_PROXY_SSL_HEADER=('HTTP_X_FORWARDED_PROTOCOL', 'https')
-CORS_ALLOWED_ORIGINS = ['3.208.228.10', 'lame.digital']
+CSRF_COOKIE_SECURE=False
+SESSION_COOKIE_SECURE=False
+SECURE_SSL_REDIRECT=False
 
 ALLOWED_HOSTS = ['3.208.228.10', 'lame.digital']
 
