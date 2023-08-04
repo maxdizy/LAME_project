@@ -10,7 +10,7 @@ import shutil
 from .MADI_NLP import getPNs, keywords
 from django.conf import settings
 from django.core.files.storage import Storage
-from LAME.settings import get_file, push_file, push_json
+from LAME.settings import get_file, push_docx, push_json
 
 def readIRF(f, CN):
     #read pdf and get field
@@ -127,8 +127,9 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IR
         os.makedirs(folLoc)
     except:
         print("Folder already exists; Pushing to folder.")
-    filLoc = 'ERFs/' + str(CN) + '-' + str(AC) + '-' + SD + '.docx'
-    push_file(filLoc, bytes(document))
+    filLoc = 'ERFs' + '\\' + str(CN) + '-' + str(AC) + '-' + SD + '.docx'
+    document.write(push_docx(filLoc))
+    #document.write(filLoc)
     #os.startfile(filLoc)
 
     # #move IRF to folder
