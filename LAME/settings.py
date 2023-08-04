@@ -35,7 +35,7 @@ def get_file(file_path):
     return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path).get()['Body']
 
 def push_docx(file_path):
-    return s3.Bucket(AWS_STORAGE_BUCKET_NAME).put_object(file_path)
+    return s3.Bucket(AWS_STORAGE_BUCKET_NAME)
 
 def push_file(file_path, contents):
     return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path).put(Body=contents)
