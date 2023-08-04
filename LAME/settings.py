@@ -34,16 +34,14 @@ s3 = boto3.resource('s3',
 def get_file(file_path):
     return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path).get()['Body']
 
+def push_docx(file_path):
+    return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path)
+
 def push_file(file_path, contents):
     return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path).put(Body=contents)
 
 def push_json(file_path, contents):
     return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path).put(Body=(bytes(json.dumps(contents).encode('UTF-8'))))
-
-def download_pickle(file_path):
-    s3.download_file(AWS_STORAGE_BUCKET_NAME, file_path, file_path)
-    with open(file_path, "rb") as file:
-            return pickle.load(file)
 
 
 SECRET_KEY = get_file('data/key.txt').read().decode()
@@ -104,16 +102,25 @@ WSGI_APPLICATION = 'LAME.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'LAMEDB',
-        'USER': 'postgres',
-        'PASSWORD': os.environ['POSTGRESQL_PASS'],
-        'HOST': 'lame-database.cdeddgxd1mqt.us-east-1.rds.amazonaws.com',
-        'PORT': '5432',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'LAMEDB',
+            'USER': 'postgres',
+            'PASSWORD': os.environ['POSTGRESQL_PASS'],
+            'HOST': 'lame-database.cdeddgxd1mqt.us-east-1.rds.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
