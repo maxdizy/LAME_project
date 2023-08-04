@@ -128,8 +128,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IR
     except:
         print("Folder already exists; Pushing to folder.")
     filLoc = 'ERFs/' + str(CN) + '-' + str(AC) + '-' + SD + '.docx'
-    push_file(filLoc, document.write('ERF.docx'))
-    #document.write('/tmp/ERFs/ERF.docx')
+    push_file(filLoc, document)
     #os.startfile(filLoc)
 
     # #move IRF to folder
