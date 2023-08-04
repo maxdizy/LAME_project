@@ -54,6 +54,7 @@ Suggested Action: Cascade recommends that LM provide the blend limits of the dis
 
 def getWordMeta(data):
     #set variables
+    nltk.download()
     stop_words = set(stopwords.words('english'))
     wordsRAW = data.split()
     words = []
