@@ -20,7 +20,7 @@ def readIRF(f, CN):
         page.append(reader.pages[i].extract_text())
     fields = reader.get_form_text_fields()
     dict(fields)
-    
+
     database = json.load(get_file('data/database.json'))
     
     #find PNs
@@ -127,9 +127,10 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IR
         os.makedirs(folLoc)
     except:
         print("Folder already exists; Pushing to folder.")
-    filLoc = folLoc + '\\' + str(CN) + '-' + str(AC) + '-' + SD + '.docx'
-    document.write(filLoc)
-    os.startfile(filLoc)
+    filLoc = 'ERFs' + '\\' + str(CN) + '-' + str(AC) + '-' + SD + '.docx'
+    push_file(filLoc, document.write)
+    #document.write(filLoc)
+    #os.startfile(filLoc)
 
     # #move IRF to folder
     # IRFpath = (settings.MEDIA_ROOT + '\\' + Storage.get_valid_name(Storage, IRFfile))
