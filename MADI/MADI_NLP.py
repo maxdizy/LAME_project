@@ -17,7 +17,7 @@ import json
 import yake
 #from .MADI_config import readIRF, writeERF
 
-train = True
+train = False
 BuildTrainingSet = False
 
 testData = '''One gouge (Labeled D1) was found on inner skin of RH Wing Fillet Panel near FS477, RBL110. Gouge D1 located beside Camloc fastener. P/N 377269-1 (Door Assy, Wing Lower Fillet, FS 477 to 513, RH) was identifiable per the stamp on the actual part and IPC Ch. C130-A-53-50-04-00A-941A-A (See Figures 1-2). No NDT was performed. A visual inspection showed no other reportable damage. Blend-out was not accomplished due to deep gouge. Cascade is unable to find a repair for this discrepancy per SRM due to location of the gouge that is beside the fastener. The cause of the damage is unknown but is suspected to be interference between head fastener located on the aircraft where the subject part installed.
@@ -54,7 +54,7 @@ Suggested Action: Cascade recommends that LM provide the blend limits of the dis
 
 def getWordMeta(data):
     #set variables
-    nltk.download()
+    nltk.download("stopwords")
     stop_words = set(stopwords.words('english'))
     wordsRAW = data.split()
     words = []
