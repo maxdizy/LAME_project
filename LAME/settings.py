@@ -18,20 +18,10 @@ import json
 import pickle
 from django.core.files.storage import default_storage
 
-client = boto3.client('ssm',
-    region_name="us-east-2")
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
 #get environment variables
-# AWS_STORAGE_BUCKET_NAME = client.get_parameter(Name='BUCKET_NAME', WithDecryption=True)['Parameter']['Value']
-# AWS_ACCESS_KEY_ID = client.get_parameter(Name='ACCESS_KEY_ID', WithDecryption=True)['Parameter']['Value']
-# AWS_SECRET_ACCESS_KEY = client.get_parameter(Name='SECRET_ACCESS_KEY', WithDecryption=True)['Parameter']['Value']
-
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_BUCKET_NAME']
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
@@ -59,21 +49,14 @@ def download_pickle(file_path):
 SECRET_KEY = get_file('data/key.txt').read().decode()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 CSRF_COOKIE_SECURE=False
 SESSION_COOKIE_SECURE=False
 SECURE_SSL_REDIRECT=False
+SECURE_PROXY_SSL_HEADER=('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['3.208.228.10', 'lame.digital']
-
-# https://pythoncircle.com/post/697/hosting-django-app-for-free-on-amazon-aws-ec2-with-gunicorn-and-nginx/
-# server {
-#     listen 80 default_server;
-#     return 444;
-# }
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -118,7 +101,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'LAME.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -142,7 +124,6 @@ else:
         }
     }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -160,7 +141,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
