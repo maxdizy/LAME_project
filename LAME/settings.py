@@ -34,7 +34,7 @@ s3 = boto3.resource('s3',
 def get_file(file_path):
     return s3.Bucket(AWS_STORAGE_BUCKET_NAME).Object(file_path).get()['Body']
 
-def push_docx(file_path):
+def push_docx():
     return s3.Bucket(AWS_STORAGE_BUCKET_NAME)
 
 def push_file(file_path, contents):
