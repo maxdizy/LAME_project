@@ -129,7 +129,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IR
         print("Folder already exists; Pushing to folder.")
     filLoc = '/home/ubuntu/ERFs/' + str(CN) + '-' + str(AC) + '-' + SD + '.docx'
     #push_file(filLoc, document.write())
-    document.write('ERF.docx)
+    document.write('ERF.docx')
     #os.startfile(filLoc)
 
     # #move IRF to folder
