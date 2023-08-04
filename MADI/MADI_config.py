@@ -20,8 +20,7 @@ def readIRF(f, CN):
         page.append(reader.pages[i].extract_text())
     fields = reader.get_form_text_fields()
     dict(fields)
-    print(dict(fields)
-
+    
     database = json.load(get_file('data/database.json'))
     
     #find PNs
