@@ -127,9 +127,9 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IR
         os.makedirs(folLoc)
     except:
         print("Folder already exists; Pushing to folder.")
-    filLoc = 'ERFs' + '\\' + str(CN) + '-' + str(AC) + '-' + SD + '.docx'
-    push_file(filLoc, document.write())
-    #document.write('https://s3.console.aws.amazon.com/s3/buckets/lame-bucket/ERFs/')
+    filLoc = folLoc + '\\' + str(CN) + '-' + str(AC) + '-' + SD + '.docx'
+    #push_file(filLoc, document.write())
+    document.write('/var/www/LAME_project/ERFs/')
     #os.startfile(filLoc)
 
     # #move IRF to folder
