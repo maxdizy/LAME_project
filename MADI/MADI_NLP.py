@@ -15,7 +15,6 @@ from sklearn import preprocessing
 import pickle
 import json
 import yake
-#from .MADI_config import readIRF, writeERF
 
 train = False
 BuildTrainingSet = False
@@ -119,6 +118,9 @@ def getPNs(data):
         x['prev'] = x['prev'].fillna(0)
         meta = x.drop('word', axis=1)
         meta = meta.astype(float)
+
+        from django.http import HttpResponse
+        return HttpResponse(x)
 
         #predict PN
         with open('MADI/models/NLPmodel.pickle', 'rb') as file:
