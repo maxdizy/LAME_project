@@ -47,7 +47,7 @@ def createERF(request):
     # Set the return value of the HttpResponse
     response = HttpResponse(content, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     # Set the HTTP header for sending to browser
-    response['Content-Disposition'] = 'attachment; filename= "{}"'.format(CN + "-" + tail + "-" + IRFTitle)
+    response['Content-Disposition'] = 'attachment; filename= "{}"'.format(CN + "-" + tail + "-" + IRFTitle + ".docx")
     # Return the response value
     return response
     return redirect('HOME-home')
