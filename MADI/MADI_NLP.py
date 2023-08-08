@@ -120,11 +120,8 @@ def getPNs(data):
         meta = meta.astype(float)
         
         #predict PN
-        PNList = ['000001']
-        with open('MADI/models/NLPmodel.pickle', 'rb') as file:
-            PNList = ['000002']
+        with open('/var/www/LAME_project/MADI/models/NLPmodel.pickle', 'rb') as file:
             model = pickle.load(file)
-        PNList = ['000003']
         #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
         #model = pickle.load(settings.get_file('data/NLPmodel.pickle').read())
         for i in range(len(x.index)-1):
