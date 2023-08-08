@@ -124,14 +124,16 @@ def getPNs(data):
         # with open('MADI/models/NLPmodel.pickle', 'rb') as file:
         #     model = pickle.load(file)
         #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
+        PNList = ['000001']
         model = pickle.loads(get_file('data/NLPmodel.pickle').read())
+        PNList = ['000002']
         for i in range(len(x.index)-1):
             if model.predict(meta.iloc[[i]]) == 1:
                 #create list
                 PNList.append(x.iloc[[i]]['word'].to_string(index=False))
         return PNList
     except:
-        return PNList
+        return ['000000']
 
 def keywords(data):
     language = "en"
