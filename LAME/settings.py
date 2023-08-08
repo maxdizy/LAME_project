@@ -47,11 +47,11 @@ def push_json(file_path, contents):
 SECRET_KEY = get_file('data/key.txt').read().decode()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 CSRF_COOKIE_SECURE=False
 SESSION_COOKIE_SECURE=False
-SECURE_SSL_REDIRECT=False
+SECURE_SSL_REDIRECT=True
 SECURE_PROXY_SSL_HEADER=('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['3.208.228.10', 'lame.digital']
