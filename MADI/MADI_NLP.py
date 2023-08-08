@@ -139,7 +139,7 @@ def getPNs(data):
                 PNList.append(x.iloc[[i]]['word'].to_string(index=False))
         return PNList
     except:
-        return ['000000']
+        return PNList
 
 def keywords(data):
     language = "en"
