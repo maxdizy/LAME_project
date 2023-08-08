@@ -113,25 +113,22 @@ def getPNs(data):
     wordMeta = getWordMeta(data)
 
     #create and clean df
-    try:
-        x = pd.DataFrame(wordMeta)
-        x = x.rename(columns={0:'word', 1:'prev', 2:'tag', 3:'toInt', 4:'len'})
-        x['prev'] = x['prev'].fillna(0)
-        meta = x.drop('word', axis=1)
-        meta = meta.astype(float)
+    x = pd.DataFrame(wordMeta)
+    x = x.rename(columns={0:'word', 1:'prev', 2:'tag', 3:'toInt', 4:'len'})
+    x['prev'] = x['prev'].fillna(0)
+    meta = x.drop('word', axis=1)
+    meta = meta.astype(float)
 
-        #predict PN
-        # with open('MADI/models/NLPmodel.pickle', 'rb') as file:
-        #     model = pickle.load(file)
-        # model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
-        model = pickle.loads(get_file('data/NLPmodel.pickle').read())
-        for i in range(len(x.index)-1):
-            if model.predict(meta.iloc[[i]]) == 1:
-                #create list
-                PNList.append(x.iloc[[i]]['word'].to_string(index=False))
-        return PNList
-    except:
-        return PNList
+    #predict PN
+    # with open('MADI/models/NLPmodel.pickle', 'rb') as file:
+    #     model = pickle.load(file)
+    # model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
+    model = pickle.loads(get_file('data/NLPmodel.pickle').read())
+    for i in range(len(x.index)-1):
+        if model.predict(meta.iloc[[i]]) == 1:
+            #create list
+            PNList.append(x.iloc[[i]]['word'].to_string(index=False))
+    return PNList
 
 def keywords(data):
     language = "en"
