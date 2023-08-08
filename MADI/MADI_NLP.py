@@ -119,8 +119,8 @@ def getPNs(data):
         meta = x.drop('word', axis=1)
         meta = meta.astype(float)
 
-        # from django.http import HttpResponse
-        # return HttpResponse(x)
+        from django.http import HttpResponse
+        return HttpResponse(x)
 
         #predict PN
         with open('MADI/models/NLPmodel.pickle', 'rb') as file:
