@@ -120,17 +120,18 @@ def getPNs(data):
         meta = meta.astype(float)
         
         #predict PN
+        PNList = ['000001']
         with open('MADI/models/NLPmodel.pickle', 'rb') as file:
             model = pickle.load(file)
-        PNList = ['000001']
+        PNList = ['000002']
         #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
         #model = pickle.load(settings.get_file('data/NLPmodel.pickle').read())
         for i in range(len(x.index)-1):
-            PNList = ['000002']
+            PNList = ['000003']
             if model.predict(meta.iloc[[i]]) == 1:
                 #create list
                 PNList.append(x.iloc[[i]]['word'].to_string(index=False))
-                PNList = ['000003']
+                PNList = ['000004']
         return PNList
     except:
         return PNList
