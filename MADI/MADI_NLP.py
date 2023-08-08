@@ -118,10 +118,7 @@ def getPNs(data):
         x['prev'] = x['prev'].fillna(0)
         meta = x.drop('word', axis=1)
         meta = meta.astype(float)
-
-        from django.http import HttpResponse
-        return HttpResponse(x)
-
+        
         #predict PN
         with open('MADI/models/NLPmodel.pickle', 'rb') as file:
             model = pickle.load(file)
@@ -133,7 +130,7 @@ def getPNs(data):
                 PNList.append(x.iloc[[i]]['word'].to_string(index=False))
         return PNList
     except:
-        return PNList
+        return ['000000']
 
 def keywords(data):
     language = "en"
