@@ -49,5 +49,5 @@ def createERF(request):
     # Set the HTTP header for sending to browser
     response['Content-Disposition'] = 'attachment; filename= "{}"'.format(CN + "-" + tail + "-" + IRFTitle + ".docx")
     # Return the response value
+    os.remove(URL)
     return response
-    return redirect('HOME-home')
