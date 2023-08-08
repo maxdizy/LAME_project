@@ -109,7 +109,7 @@ def getWordMeta(data):
 
 def getPNs(data):
     #define variables
-    PNList = ['35412212']
+    PNList = []
     wordMeta = getWordMeta(data)
 
     #create and clean df
@@ -121,19 +121,14 @@ def getPNs(data):
         meta = meta.astype(float)
 
         #predict PN
-        try:
-            with open('MADI/model/NLPmodel.pickle', 'rb') as file:
-                model = pickle.load(file)
-            #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
-        except:
-            print("model not found")
-            pass
+        with open('MADI/models/NLPmodel.pickle', 'rb') as file:
+            model = pickle.load(file)
+        #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
         #model = pickle.load(settings.get_file('data/NLPmodel.pickle').read())
         for i in range(len(x.index)-1):
             if model.predict(meta.iloc[[i]]) == 1:
                 #create list
                 PNList.append(x.iloc[[i]]['word'].to_string(index=False))
-        print(PNList)
         return PNList
     except:
         return PNList
