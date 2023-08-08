@@ -60,15 +60,18 @@ def readIRF(f, CN):
     #update database
     database.update({CN: [PNs, KWs]})
 
+    URL = '/var/www/LAME_project/media/' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
+    #URL = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
+
     #push potROED
     push_json('data/potROED', potROEDs)
 
     #push database
     push_json('data/database.json', database)
 
-    return fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROEDs
+    return fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROEDs, URL
 
-def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IRFfile):
+def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, URL):
     #pull ERF Template
     if mod:
         document = MailMerge(io.BytesIO(get_file('data/MADI ERF Template for Mod.docx').read()))
@@ -101,7 +104,6 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IR
                 response = ERFtext[ERFtext.find('LM Response'):ERFtext.find('LM Technical Approval')]
                 MPList = ERFtext[ERFtext.find('Material / Parts List'):ERFtext.find('Authoring and auth`orization')]
             except:
-                #MADI.show_big_error('Cannot read ROED file or file does not have proper format. \n ERF must have \'LM Response\' header under LM Response, \n\'LM Technical Approval\' dropdown, and \'Material / Parts List:\'')
                 pass
 
     #populate fields
@@ -119,28 +121,11 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, IR
         Choose=cat)
 
     #push populated ERF
-    ERFL = get_file('data/ERFL.txt').read().decode()
-    print(ERFL)
-    SD = str(SD.translate(str.maketrans('','',string.punctuation)))
-    folLoc = ERFL + '\\' + str(CN) + '-' + str(AC) + '-' + SD 
-    try:
-        os.makedirs(folLoc)
-    except:
-        print("Folder already exists; Pushing to folder.")
-    filLoc = '/var/www/LAME_project/media/' + str(CN) + '-' + str(AC) + '-' + SD + '.docx'
-
-    document.write(filLoc)
+    document.write(URL)
     #os.startfile(filLoc)
 
-    # #move IRF to folder
-    # IRFpath = (settings.MEDIA_ROOT + '\\' + Storage.get_valid_name(Storage, IRFfile))
-    # shutil.copy(IRFpath, folLoc)
-
     #create DART form
-    if dart : createDart(AC, D, PN, folLoc, CN)
-
-    #push to sharePoint
-    #MADI_sharePoint.toSharepoint(filLoc)
+    if dart : createDart(AC, D, PN, URL, CN)
 
 def createDart(AC, D, PN, folLoc, CN):
     reader = PdfReader("data/DART Template.pdf")
