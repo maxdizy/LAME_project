@@ -7,7 +7,7 @@ from PyPDF2 import PdfReader, PdfWriter
 from mailmerge import MailMerge
 from datetime import date
 import shutil
-from MADI_NLP import getPNs, keywords
+from MADI.MADI_NLP import getPNs, keywords
 from django.conf import settings
 from django.core.files.storage import Storage
 from LAME.settings import get_file, push_docx, push_json
