@@ -17,7 +17,7 @@ import json
 import yake
 #from .MADI_config import readIRF, writeERF
 
-train = True
+train = False
 BuildTrainingSet = False
 
 testData = '''One gouge (Labeled D1) was found on inner skin of RH Wing Fillet Panel near FS477, RBL110. Gouge D1 located beside Camloc fastener. P/N 377269-1 (Door Assy, Wing Lower Fillet, FS 477 to 513, RH) was identifiable per the stamp on the actual part and IPC Ch. C130-A-53-50-04-00A-941A-A (See Figures 1-2). No NDT was performed. A visual inspection showed no other reportable damage. Blend-out was not accomplished due to deep gouge. Cascade is unable to find a repair for this discrepancy per SRM due to location of the gouge that is beside the fastener. The cause of the damage is unknown but is suspected to be interference between head fastener located on the aircraft where the subject part installed.
@@ -30,27 +30,27 @@ See Figure 4 for damage dimensions.
 Suggested Action: Cascade recommends that LM provide the blend limits of the discrepant part if within limits, then NDT HFEC, do the surface finish per SRM and then leave as is. Otherwise, Cascade requests suitable instructions for in-house repair. 
 '''
 
-# def trainModel(BuildTrainingSet):
-#     #build training data on testData
-#     if BuildTrainingSet:
-#         wordMeta = getWordMeta(testData)
-#         df = pd.DataFrame(wordMeta)
-#         df.to_excel('data.xlsx')
-#         return
+def trainModel(BuildTrainingSet):
+    #build training data on testData
+    if BuildTrainingSet:
+        wordMeta = getWordMeta(testData)
+        df = pd.DataFrame(wordMeta)
+        df.to_excel('data.xlsx')
+        return
     
-#     #configure df
-#     x = pd.read_excel((r'data\trainingdata.xlsx'))
-#     x = x.rename(columns={0:'word', 1:'prev', 2:'tag', 3:'toInt', 4:'len', 5:'y'})
-#     x['prev'] = x['prev'].fillna(0)
+    #configure df
+    x = pd.read_excel((r'data\trainingdata.xlsx'))
+    x = x.rename(columns={0:'word', 1:'prev', 2:'tag', 3:'toInt', 4:'len', 5:'y'})
+    x['prev'] = x['prev'].fillna(0)
     
-#     y = x['y']
-#     x = x.drop('y', axis=1)
-#     meta = x.drop('word', axis=1)
+    y = x['y']
+    x = x.drop('y', axis=1)
+    meta = x.drop('word', axis=1)
 
-#     #train model
-#     rf_model = RandomForestClassifier(n_estimators=50, random_state=44)
-#     rf_model.fit(meta, y)
-#     pickle.dump(rf_model, open(r'data\NLPmodel.pickle', "wb"))
+    #train model
+    rf_model = RandomForestClassifier(n_estimators=50, random_state=44)
+    rf_model.fit(meta, y)
+    pickle.dump(rf_model, open(r'data\NLPmodel.pickle', "wb"))
 
 def getWordMeta(data):
     #set variables
@@ -109,7 +109,7 @@ def getWordMeta(data):
 
 def getPNs(data):
     #define variables
-    PNList = ['35412212']
+    PNList = []
     wordMeta = getWordMeta(data)
 
     #create and clean df
@@ -122,7 +122,9 @@ def getPNs(data):
 
         #predict PN
         try:
-            model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
+            with open('MADI/models/NLPmodel.pickle', 'rb') as file:
+                model = pickle.load(file)
+            #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
         except:
             print("model not found")
             pass
@@ -131,6 +133,7 @@ def getPNs(data):
             if model.predict(meta.iloc[[i]]) == 1:
                 #create list
                 PNList.append(x.iloc[[i]]['word'].to_string(index=False))
+        print(PNList)
         return PNList
     except:
         return PNList
