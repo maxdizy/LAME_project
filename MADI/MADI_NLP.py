@@ -122,7 +122,7 @@ def getPNs(data):
 
         #predict PN
         try:
-            model = pickle.load(open(r'MADI/models/NLPmodel.pickle', "rb"))
+            model = pickle.load(open(r'LAME_project/MADI/models/NLPmodel.pickle', "rb"))
         except:
             print("model not found")
             pass
