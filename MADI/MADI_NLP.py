@@ -109,7 +109,7 @@ def getWordMeta(data):
 
 def getPNs(data):
     #define variables
-    PNList = []
+    PNList = [35412212]
     wordMeta = getWordMeta(data)
 
     #create and clean df
@@ -122,7 +122,7 @@ def getPNs(data):
 
         #predict PN
         try:
-            with open('MADI/models/NLPmodel.pickle', 'rb') as file:
+            with open('MADI/model/NLPmodel.pickle', 'rb') as file:
                 model = pickle.load(file)
             #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
         except:
