@@ -15,6 +15,7 @@ from sklearn import preprocessing
 import pickle
 import json
 import yake
+from LAME.settings import get_file
 
 train = False
 BuildTrainingSet = False
@@ -118,12 +119,12 @@ def getPNs(data):
         x['prev'] = x['prev'].fillna(0)
         meta = x.drop('word', axis=1)
         meta = meta.astype(float)
-        
+
         #predict PN
-        with open('/var/www/LAME_project/MADI/models/NLPmodel.pickle', 'rb') as file:
-            model = pickle.load(file)
+        # with open('MADI/models/NLPmodel.pickle', 'rb') as file:
+        #     model = pickle.load(file)
         #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
-        #model = pickle.load(settings.get_file('data/NLPmodel.pickle').read())
+        model = pickle.loads(get_file('data/NLPmodel.pickle').read())
         for i in range(len(x.index)-1):
             if model.predict(meta.iloc[[i]]) == 1:
                 #create list
