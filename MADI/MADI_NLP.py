@@ -114,25 +114,17 @@ def getPNs(data):
 
     #create and clean df
     try:
-        PNList = ['000009']
         x = pd.DataFrame(wordMeta)
-        PNList = ['000001']
         x = x.rename(columns={0:'word', 1:'prev', 2:'tag', 3:'toInt', 4:'len'})
-        PNList = ['000002']
         x['prev'] = x['prev'].fillna(0)
-        PNList = ['000003']
         meta = x.drop('word', axis=1)
-        PNList = ['000004']
         meta = meta.astype(float)
-        PNList = ['000005']
 
         #predict PN
         # with open('MADI/models/NLPmodel.pickle', 'rb') as file:
         #     model = pickle.load(file)
-        #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
-        PNList = ['000006']
+        # model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
         model = pickle.loads(get_file('data/NLPmodel.pickle').read())
-        PNList = ['000007']
         for i in range(len(x.index)-1):
             if model.predict(meta.iloc[[i]]) == 1:
                 #create list
