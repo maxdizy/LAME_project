@@ -109,7 +109,7 @@ def getWordMeta(data):
 
 def getPNs(data):
     #define variables
-    PNList = [35412212]
+    PNList = ['35412212']
     wordMeta = getWordMeta(data)
 
     #create and clean df
