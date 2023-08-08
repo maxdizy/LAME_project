@@ -122,14 +122,14 @@ def getPNs(data):
 
         #predict PN
         try:
-            model = pickle.load(open("MADI/model/NLPmodel.pickle", "rb"))
+            model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
         except:
             print("model not found")
             pass
         #model = pickle.load(settings.get_file('data/NLPmodel.pickle').read())
         for i in range(len(x.index)-1):
             if model.predict(meta.iloc[[i]]) == 1:
-                #create list of tuples
+                #create list
                 PNList.append(x.iloc[[i]]['word'].to_string(index=False))
         return PNList
     except:
