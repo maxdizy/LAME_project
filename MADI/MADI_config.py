@@ -125,7 +125,8 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
     #os.startfile(filLoc)
 
     #create DART form
-    if dart : createDart(AC, D, PN, "/var/www/LAME_project/MADI/media/" + "DART-" + CN, CN)
+    dartPath = "/var/www/LAME_project/media/" + "DART-" + CN + ".pdf"
+    if dart : createDart(AC, D, PN, dartPath, CN)
 
 def createDart(AC, D, PN, dartPath, CN):
     reader = PdfReader(get_file("data/DART Template.pdf"))
@@ -150,7 +151,7 @@ def createDart(AC, D, PN, dartPath, CN):
     # Set the HTTP header for sending to browser
     dartResponse['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
     # Return the response value
-    #os.remove(dartPath)
+    os.remove(dartPath)
     return dartResponse
 
 #workFlow('1')
