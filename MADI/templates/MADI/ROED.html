@@ -19,20 +19,26 @@
                   <tr>
                     <td style="border-bottom: 1px solid #cccccc;background: unset;height:1px;width:100%;margin:0px 0px 0px 0px"></td>
                   </tr>
-                      {% for potROED in potROEDs %}
-                      <tr>
-                        <td align="left" class="es-p10"><br><h3 style="color:#e69138">{{ potROED.caseNo}}&nbsp;&nbsp;&nbsp;<span style="color:#333333">Part Number(s): {{ potROED.partNos }}</span></h3></td>
-                      </tr>
-                      <tr>
-                        <td align="left" class="es-p10"><br><p>{{ potROED.keyWords }}</p></td>
-                      </tr>
-                      {% endfor %}   
-                      <tr>
-                        <td style="border-bottom: 1px solid #cccccc;background: unset;height:1px;width:100%;margin:0px 0px 0px 0px"></td>
-                      </tr>
+                  {% for potROED in potROEDs %}
+                  <tr>
+                    <td align="left" class="es-p10"><br><h3 style="color:#e69138">{{ potROED.caseNo}}&nbsp;&nbsp;&nbsp;<span style="color:#333333">Part Number(s): {{ potROED.partNos }}</span></h3></td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="es-p10"><br><p>{{ potROED.keyWords }}</p></td>
+                  </tr>
+                  {% endfor %}   
+                  <tr>
+                    <td style="border-bottom: 1px solid #cccccc;background: unset;height:1px;width:100%;margin:0px 0px 0px 0px"><br></td>
+                  </tr>
+                  <tr><td style="padding-bottom:10px"><br></td></tr>
                   <tr>
                     <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><a href="{% url 'MADI-createERF' %}" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138" download>Create New ERF</a></span></td>
                   </tr>
+                  {% if dart %}
+                  <tr>
+                    <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><a href="{% url 'MADI-createDART' %}" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138" download>Create DART form</a></span></td>
+                  </tr>
+                  {% endif %}
                 </table></td>
               </tr>
             </table></td>
