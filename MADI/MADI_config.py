@@ -129,6 +129,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
     if dart : createDart(AC, D, PN, dartPath, CN)
 
 def createDart(AC, D, PN, dartPath, CN):
+    #create DART form
     reader = PdfReader(io.BytesIO(get_file("data/DART template.pdf").read()))
     fields = reader.get_form_text_fields()
 
@@ -139,19 +140,17 @@ def createDart(AC, D, PN, dartPath, CN):
     writer.update_page_form_field_values(
         writer.pages[0], {"Aircraft Serial No": AC, "Statement of Condition": D, "Part Numbers": PN}
         )
-
-    #create form
     writer.write(dartPath)
 
     #download form
-    # with open(dartPath, 'rb') as dart:
-    #     dartContent = dart.read()
-    # # Set the return value of the HttpResponse
-    # dartResponse = HttpResponse(dartContent, content_type='application/pdf')
-    # # Set the HTTP header for sending to browser
-    # dartResponse['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
-    # # Return the response value
-    # os.remove(dartPath)
-    # return dartResponse
+    with open(dartPath, 'rb') as dart:
+        dartContent = dart.read()
+    # Set the return value of the HttpResponse
+    dartResponse = HttpResponse(dartContent, content_type='application/pdf')
+    # Set the HTTP header for sending to browser
+    dartResponse['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
+    # Return the response value
+    os.remove(dartPath)
+    return dartResponse
 
 #workFlow('1')
