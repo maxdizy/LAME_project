@@ -125,11 +125,11 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
     #os.startfile(filLoc)
 
     #create DART form
-    dartPath = "/var/www/LAME_project/media/" + "DART-" + CN + ".pdf"
+    dartPath = '/var/www/LAME_project/media/' + 'DART-' + CN + '.pdf'
     if dart : createDart(AC, D, PN, dartPath, CN)
 
 def createDart(AC, D, PN, dartPath, CN):
-    reader = PdfReader(get_file("data/DART Template.pdf"))
+    reader = PdfReader(get_file("data/DART template.pdf"))
     fields = reader.get_form_text_fields()
 
     writer = PdfWriter()
