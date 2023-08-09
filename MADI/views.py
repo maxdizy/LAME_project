@@ -30,12 +30,11 @@ def upload(request):
         if ROED:
             return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'dart' : dart, 'hook' : hook, 'punch' : punch})
         else:  
-            writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, URL)
+            return redirect('MADI-createERF')
     return redirect('HOME-home')
 
 @login_required
 def createERF(request):
-    print(f"DART IS {dart}")
     writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, URL)
     with open(URL, 'rb') as erf:
         content = erf.read()
