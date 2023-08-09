@@ -129,7 +129,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
     if dart : createDart(AC, D, PN, dartPath, CN)
 
 def createDart(AC, D, PN, dartPath, CN):
-    reader = PdfReader(get_file("data/DART template.pdf"))
+    reader = PdfReader(get_file("data/DART template.pdf").read())
     fields = reader.get_form_text_fields()
 
     writer = PdfWriter()
