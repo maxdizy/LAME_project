@@ -2,7 +2,7 @@ import os
 import random
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
-from .MADI_config import readIRF, writeERF
+from .MADI_config import readIRF, writeERF, writeDart
 from MADI.forms import uploadForm
 from .models import config
 from django.contrib.auth.decorators import login_required
@@ -28,13 +28,14 @@ def upload(request):
         CN, file, dart, mod = request.POST.get('caseNo'), request.FILES.get('file'), request.POST.get("dart"), request.POST.get("mod")
         tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, URL = readIRF(file, CN)
         if ROED:
-            return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'hook' : hook, 'punch' : punch})
+            return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'dart' : dart, 'hook' : hook, 'punch' : punch})
         else:  
             writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, URL)
     return redirect('HOME-home')
 
 @login_required
 def createERF(request):
+    print(f"DART IS {dart}")
     writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, URL)
     with open(URL, 'rb') as erf:
         content = erf.read()
@@ -45,3 +46,17 @@ def createERF(request):
     # Return the response value
     os.remove(URL)
     return response
+
+def createDART(request):
+    #dartPath = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + 'DART-' + CN + '.pdf'
+    dartPath = '/var/www/LAME_project/media/' + 'DART-' + CN + '.pdf'
+    writeDart(tail, description, affected, dartPath, CN)
+    with open(dartPath, 'rb') as dart:
+        dartContent = dart.read()
+    # Set the return value of the HttpResponse
+    dartResponse = HttpResponse(dartContent, content_type='application/pdf')
+    # Set the HTTP header for sending to browser
+    dartResponse['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
+    # Return the response value
+    os.remove(dartPath)
+    return dartResponse
