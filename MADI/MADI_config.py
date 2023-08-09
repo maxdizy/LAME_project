@@ -3,14 +3,14 @@ import io
 import sys
 import json
 import string
+from django.http import HttpResponse
 from PyPDF2 import PdfReader, PdfWriter
 from mailmerge import MailMerge
 from datetime import date
-import shutil
 from .MADI_NLP import getPNs, keywords
 from django.conf import settings
 from django.core.files.storage import Storage
-from LAME.settings import get_file, push_docx, push_json
+from LAME.settings import get_file, push_json
 
 def readIRF(f, CN):
     #read pdf and get field
@@ -60,8 +60,8 @@ def readIRF(f, CN):
     #update database
     database.update({CN: [PNs, KWs]})
 
-    URL = '/var/www/LAME_project/media/' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
-    #URL = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
+    #URL = '/var/www/LAME_project/media/' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
+    URL = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
 
     #push potROED
     push_json('data/potROED', potROEDs)
@@ -128,7 +128,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
     if dart : createDart(AC, D, PN, URL, CN)
 
 def createDart(AC, D, PN, folLoc, CN):
-    reader = PdfReader("data/DART Template.pdf")
+    reader = PdfReader(get_file("data/DART Template.pdf"))
     fields = reader.get_form_text_fields()
 
     writer = PdfWriter()
@@ -136,14 +136,20 @@ def createDart(AC, D, PN, folLoc, CN):
     writer.add_page(page)
 
     writer.update_page_form_field_values(
-    writer.pages[0], {"Aircraft Serial No": AC, "Statement of Condition": D, "Part Numbers": PN}
-    )
+        writer.pages[0], {"Aircraft Serial No": AC, "Statement of Condition": D, "Part Numbers": PN}
+        )
 
     #create form
-    path = folLoc + "/DART-" + CN
-    with open(path, "wb") as output_stream:
-        writer.write(output_stream)
-    print("HERE")
-    os.startfile(path)
+    path = "/var/www/LAME_project/MADI/media/" + "DART-" + CN
+    writer.write(path)
+    with open(path, 'rb') as dart:
+        content = dart.read()
+    # Set the return value of the HttpResponse
+    response = HttpResponse(content, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    # Set the HTTP header for sending to browser
+    response['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
+    # Return the response value
+    os.remove(path)
+    return response
 
 #workFlow('1')

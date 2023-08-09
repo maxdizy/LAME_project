@@ -15,7 +15,7 @@ from sklearn import preprocessing
 import pickle
 import json
 import yake
-from LAME.settings import get_file
+#from LAME.settings import get_file
 
 train = False
 BuildTrainingSet = False
@@ -39,7 +39,7 @@ def trainModel(BuildTrainingSet):
         return
     
     #configure df
-    x = pd.read_excel((r'data\trainingdata.xlsx'))
+    x = pd.read_excel((r'data_old\trainingdata.xlsx'))
     x = x.rename(columns={0:'word', 1:'prev', 2:'tag', 3:'toInt', 4:'len', 5:'y'})
     x['prev'] = x['prev'].fillna(0)
     
@@ -50,7 +50,7 @@ def trainModel(BuildTrainingSet):
     #train model
     rf_model = RandomForestClassifier(n_estimators=50, random_state=44)
     rf_model.fit(meta, y)
-    pickle.dump(rf_model, open(r'data\NLPmodel.pickle', "wb"))
+    pickle.dump(rf_model, open('MADI/models/NLPmodel.pickle', "wb"))
 
 def getWordMeta(data):
     #set variables
@@ -113,22 +113,25 @@ def getPNs(data):
     wordMeta = getWordMeta(data)
 
     #create and clean df
-    x = pd.DataFrame(wordMeta)
-    x = x.rename(columns={0:'word', 1:'prev', 2:'tag', 3:'toInt', 4:'len'})
-    x['prev'] = x['prev'].fillna(0)
-    meta = x.drop('word', axis=1)
-    meta = meta.astype(float)
+    try:
+        x = pd.DataFrame(wordMeta)
+        x = x.rename(columns={0:'word', 1:'prev', 2:'tag', 3:'toInt', 4:'len'})
+        x['prev'] = x['prev'].fillna(0)
+        meta = x.drop('word', axis=1)
+        meta = meta.astype(float)
 
-    #predict PN
-    # with open('MADI/models/NLPmodel.pickle', 'rb') as file:
-    #     model = pickle.load(file)
-    # model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
-    model = pickle.loads(get_file('data/NLPmodel.pickle').read())
-    for i in range(len(x.index)-1):
-        if model.predict(meta.iloc[[i]]) == 1:
-            #create list
-            PNList.append(x.iloc[[i]]['word'].to_string(index=False))
-    return PNList
+        #predict PN
+        # with open('MADI/models/NLPmodel.pickle', 'rb') as file:
+        #     model = pickle.load(file)
+        #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
+        model = pickle.loads(get_file('data/NLPmodel.pickle').read())
+        for i in range(len(x.index)-1):
+            if model.predict(meta.iloc[[i]]) == 1:
+                #create list
+                PNList.append(x.iloc[[i]]['word'].to_string(index=False))
+        return PNList
+    except:
+        return PNList
 
 def keywords(data):
     language = "en"
