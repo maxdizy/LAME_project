@@ -44,7 +44,7 @@ def push_json(file_path, contents):
 SECRET_KEY = get_file('data/key.txt').read().decode()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 CSRF_COOKIE_SECURE=False
 SESSION_COOKIE_SECURE=False
