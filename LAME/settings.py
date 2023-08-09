@@ -44,7 +44,7 @@ def push_json(file_path, contents):
 SECRET_KEY = get_file('data/key.txt').read().decode()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 CSRF_COOKIE_SECURE=False
 SESSION_COOKIE_SECURE=False
@@ -101,21 +101,14 @@ WSGI_APPLICATION = 'LAME.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'LAMEDB',
+        'USER': 'postgres',
+        'PASSWORD': os.environ['POSTGRESQL_PASS'],
+        'HOST': 'lame-database.cdeddgxd1mqt.us-east-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'LAMEDB',
-#         'USER': 'postgres',
-#         'PASSWORD': os.environ['POSTGRESQL_PASS'],
-#         'HOST': 'lame-database.cdeddgxd1mqt.us-east-1.rds.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
