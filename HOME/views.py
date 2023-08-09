@@ -21,3 +21,13 @@ def contactAdmin(request):
 @login_required
 def profile(request):
     return render(request, 'HOME/profile.html', {'hook' : hook, 'punch' : punch})
+
+@login_required
+def user_guide(request):
+    userGuide = get_file('data/LAME User Guide.pdf').read()
+    # Set the return value of the HttpResponse
+    UserGuideresponse = HttpResponse(userGuide, content_type='application/pdf')
+    # Set the HTTP header for sending to browser
+    UserGuideresponse['Content-Disposition'] = 'attachment; filename= "LAME User Guide.pdf"'
+    # Return the response value
+    return UserGuideresponse

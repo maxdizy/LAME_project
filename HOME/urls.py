@@ -16,4 +16,5 @@ urlpatterns = [
     path('contactAdmin/', views.contactAdmin, name='HOME-contactAdmin'),
     path('logout/', auth_views.LogoutView.as_view(template_name="HOME/logout.html", extra_context={'hook' : hook, 'punch' : punch}), name='HOME-logout'),
     path('profile/', views.profile, name='HOME-profile'),
+    path('userGuide/', views.user_guide, name='HOME-userGuide'),
 ]
