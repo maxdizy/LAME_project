@@ -151,7 +151,7 @@ def createDart(AC, D, PN, dartPath, CN):
     # Set the HTTP header for sending to browser
     dartResponse['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
     # Return the response value
-    os.remove(dartPath)
+    #os.remove(dartPath)
     return dartResponse
 
 #workFlow('1')
