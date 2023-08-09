@@ -36,12 +36,21 @@ def upload(request):
 @login_required
 def createERF(request):
     writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, URL)
-    with open(URL, 'rb') as erf:
-        content = erf.read()
+    # with open(URL, 'rb') as erf:
+    #     content = erf.read()
+    # # Set the return value of the HttpResponse
+    # response = HttpResponse(content, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    # # Set the HTTP header for sending to browser
+    # response['Content-Disposition'] = 'attachment; filename= "{}"'.format(CN + "-" + tail + "-" + IRFTitle + ".docx")
+    # # Return the response value
+    # os.remove(URL)
+    # return response
+    with open(dartPath, 'rb') as dart:
+        dartContent = dart.read()
     # Set the return value of the HttpResponse
-    response = HttpResponse(content, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    dartResponse = HttpResponse(dartContent, content_type='application/pdf')
     # Set the HTTP header for sending to browser
-    response['Content-Disposition'] = 'attachment; filename= "{}"'.format(CN + "-" + tail + "-" + IRFTitle + ".docx")
+    dartResponse['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
     # Return the response value
-    os.remove(URL)
-    return response
+    os.remove(dartPath)
+    return dartResponse
