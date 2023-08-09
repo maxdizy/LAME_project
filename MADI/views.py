@@ -36,25 +36,12 @@ def upload(request):
 @login_required
 def createERF(request):
     writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, URL)
-
-    # with open(URL, 'rb') as erf:
-    #     content = erf.read()
-    # # Set the return value of the HttpResponse
-    # response = HttpResponse(content, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-    # # Set the HTTP header for sending to browser
-    # response['Content-Disposition'] = 'attachment; filename= "{}"'.format(CN + "-" + tail + "-" + IRFTitle + ".docx")
-    # # Return the response value
-    # os.remove(URL)
-    # return response
-    
-    dartPath = '/var/www/LAME_project/media/' + 'DART-' + CN + '.pdf'
-    #download form
-    with open(dartPath, 'rb') as dart:
-        dartContent = dart.read()
+    with open(URL, 'rb') as erf:
+        content = erf.read()
     # Set the return value of the HttpResponse
-    dartResponse = HttpResponse(dartContent, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response = HttpResponse(content, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     # Set the HTTP header for sending to browser
-    dartResponse['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
+    response['Content-Disposition'] = 'attachment; filename= "{}"'.format(CN + "-" + tail + "-" + IRFTitle + ".docx")
     # Return the response value
-    os.remove(dartPath)
-    return dartResponse
+    os.remove(URL)
+    return response
