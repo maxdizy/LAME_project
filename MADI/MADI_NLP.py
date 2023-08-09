@@ -15,7 +15,7 @@ from sklearn import preprocessing
 import pickle
 import json
 import yake
-#from LAME.settings import get_file
+from LAME.settings import get_file
 
 train = False
 BuildTrainingSet = False
