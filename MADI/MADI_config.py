@@ -144,14 +144,14 @@ def createDart(AC, D, PN, dartPath, CN):
     writer.write(dartPath)
 
     #download form
-    with open(dartPath, 'rb') as dart:
-        dartContent = dart.read()
-    # Set the return value of the HttpResponse
-    dartResponse = HttpResponse(dartContent, content_type='application/pdf')
-    # Set the HTTP header for sending to browser
-    dartResponse['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
-    # Return the response value
-    os.remove(dartPath)
-    return dartResponse
+    # with open(dartPath, 'rb') as dart:
+    #     dartContent = dart.read()
+    # # Set the return value of the HttpResponse
+    # dartResponse = HttpResponse(dartContent, content_type='application/pdf')
+    # # Set the HTTP header for sending to browser
+    # dartResponse['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
+    # # Return the response value
+    # os.remove(dartPath)
+    # return dartResponse
 
 #workFlow('1')
