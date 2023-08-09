@@ -125,9 +125,9 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
     #os.startfile(filLoc)
 
     #create DART form
-    if dart : createDart(AC, D, PN, URL, CN)
+    if dart : createDart(AC, D, PN, "/var/www/LAME_project/MADI/media/" + "DART-" + CN, CN)
 
-def createDart(AC, D, PN, folLoc, CN):
+def createDart(AC, D, PN, dartPath, CN):
     reader = PdfReader(get_file("data/DART Template.pdf"))
     fields = reader.get_form_text_fields()
 
@@ -140,16 +140,17 @@ def createDart(AC, D, PN, folLoc, CN):
         )
 
     #create form
-    path = "/var/www/LAME_project/MADI/media/" + "DART-" + CN
-    writer.write(path)
-    with open(path, 'rb') as dart:
-        content = dart.read()
+    writer.write(dartPath)
+
+    #download form
+    with open(dartPath, 'rb') as dart:
+        dartContent = dart.read()
     # Set the return value of the HttpResponse
-    response = HttpResponse(content, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    dartResponse = HttpResponse(dartContent, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     # Set the HTTP header for sending to browser
-    response['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
+    dartResponse['Content-Disposition'] = 'attachment; filename= "{}"'.format("DART-" + CN + ".pdf")
     # Return the response value
-    os.remove(path)
-    return response
+    #os.remove(dartPath)
+    return dartResponse
 
 #workFlow('1')
