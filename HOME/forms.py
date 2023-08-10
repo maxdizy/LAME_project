@@ -5,8 +5,8 @@ from .models import contact
 class contactAdminForm(ModelForm):
     ID = forms.TextInput()
     email = forms.TextInput()
-    request = forms.TextInput()
+    type = forms.TextInput()
     body = forms.TextInput()
     class Meta:
         model = contact
-        fields = ['ID', 'email', 'request', 'body']
+        fields = ['ID', 'email', 'type', 'body']
