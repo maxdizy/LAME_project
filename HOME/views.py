@@ -30,7 +30,10 @@ def contactAdmin(request):
     #email_pass = os.environ.get('EMAIL_PASS', 'lzucmtpbixlhuezq')
     email_pass = 'lzucmtpbixlhuezq'
     email_reviever = 'maxwell.l.dizy@lmco.com'
-    subject = 'LAME request - ' + request.POST.get('ID') + ' - ' + request.POST.get('type') + ' - ' + request.POST.get('email')
+    #subject = 'LAME request - ' + request.POST.get('ID') + ' - ' + request.POST.get('type') + ' - ' + request.POST.get('email')
+    subject = 'LAME request - ' + request.POST.get('ID')
+    subject = 'LAME request - ' + request.POST.get('type')
+    subject = 'LAME request - ' + request.POST.get('email')
     body = request.POST.get('body')
 
     em = EmailMessage()
