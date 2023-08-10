@@ -35,7 +35,7 @@ def contactAdmin(request):
 
     # try:
     email_sender = 'lame.communication@gmail.com'
-    email_pass = os.environ['EMAIL_PASS']
+    email_pass = os.environ.get('EMAIL_PASS', 'lzucmtpbixlhuezq')
     email_reviever = 'maxwell.l.dizy@lmco.com'
     subject = 'LAME request - ' + request.POST.get('ID') + ' - ' + request.POST.get('request') + ' - ' + request.POST.get('email')
     body = request.POST.get('body')
