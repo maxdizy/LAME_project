@@ -30,26 +30,27 @@ def contactAdmin(request):
     #email_pass = os.environ.get('EMAIL_PASS', 'lzucmtpbixlhuezq')
     email_pass = 'lzucmtpbixlhuezq'
     email_reviever = 'maxwell.l.dizy@lmco.com'
-    #subject = 'LAME request - ' + request.POST.get('ID') + ' - ' + request.POST.get('type') + ' - ' + request.POST.get('email')
-    subject = 'LAME request - ' + request.POST.get('ID')
-    subject = 'LAME request - ' + request.POST.get('type')
-    subject = 'LAME request - ' + request.POST.get('email')
-    body = request.POST.get('body')
+    if request.method == 'POST':
+        form = contactAdminForm(request.POST)
+        if form.is_valid():
+            form.save()
+        subject = 'LAME request - ' + request.POST.get('ID') + ' - ' + request.POST.get('type') + ' - ' + request.POST.get('email')
+        body = request.POST.get('body')
 
-    em = EmailMessage()
-    em['From'] = email_sender
-    em['To'] = email_reviever
-    em['Subject'] = subject
-    em.set_content(body)
+        em = EmailMessage()
+        em['From'] = email_sender
+        em['To'] = email_reviever
+        em['Subject'] = subject
+        em.set_content(body)
 
-    context = ssl.create_default_context()
-    with smtplib.SMTP('smtp.gmail.com', 587, timeout=120) as server:
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
-        server.login(email_sender, email_pass)
-        server.sendmail(email_sender, email_reviever, em.as_string())
-        server.quit()
+        context = ssl.create_default_context()
+        with smtplib.SMTP('smtp.gmail.com', 587, timeout=120) as server:
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login(email_sender, email_pass)
+            server.sendmail(email_sender, email_reviever, em.as_string())
+            server.quit()
     # except Exception as error:
     #     print(error)
     #     return render(request, 'HOME/contactAdmin.html', {'form' : contactAdminForm, 'warning' : 'error sending form.', 'success' : '', 'hook' : hook, 'punch' : punch})
