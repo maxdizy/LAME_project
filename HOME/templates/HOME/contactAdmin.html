@@ -11,21 +11,53 @@
             <td width="852" align="center" valign="top">
             <table cellpadding="0" cellspacing="0" width="100%" role="presentation">
               <tr>
-                <td align="left" class="es-p40r"><h1 style="font-family: 'merriweather sans', 'helvetica neue', helvetica, arial, sans-serif;text-align: left;color: #333333;line-height: 120%">Contact <span style="color:#e69138">Admin</span></h1><p style="color: #000000"><br></p></td>
+                <td align="left" class="es-p40r"><h1 style="font-family: 'merriweather sans', 'helvetica neue', helvetica, arial, sans-serif;text-align: left;color: #333333;line-height: 120%">Contact <span style="color:#e69138">Admin</span></h1><p style="color: #000000"><br></p><p style="color: #000000">&nbsp; &nbsp;please fill all fields below&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span style="color:#ff0000">{{  warning  }}</span><span style="color:#00ff00">{{  success  }}</span></p></td></td>
               </tr>
               <tr>
-                <td align="center" class="es-p5" style="font-size:0">
-                <table border="0" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                <td class="es-p15t es-p10b es-p20r es-p20l" align="left" style="background-color: transparent" bgcolor="transparent">
+                <table cellpadding="0" cellspacing="0" width="100%">
                   <tr>
-                    <td style="border-bottom: 1px solid #cccccc;background: unset;height:1px;width:100%;margin:0px 0px 0px 0px"></td>
+                    <td width="842" align="center" valign="top">
+                    <table cellpadding="0" cellspacing="0" width="100%" role="presentation">
+                      <tr class="es-visible-amp-html-only">
+                        <td align="left">
+                        <!--FORM START-->
+                        <form id="form-1688739984980" method="POST" action="{% url 'HOME-contactAdmin' %}" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <table width="100%" cellspacing="0" cellpadding="0" role="presentation">
+                            <td align="left" valign="top">
+                              {{ form.non_field_errors }}
+                              <div class="fieldWrapper">
+                                  {{ form.ID.errors }}
+                                  <label for="ID">employee ID</label>
+                                  {{ form.ID }}
+                              </div>
+                              <div class="fieldWrapper">
+                                  {{ form.email.errors }}
+                                  <br><label for="email">email</label>
+                                  {{ form.email }}
+                              </div>
+                              <div class="fieldWrapper">
+                                  {{ form.request.errors }}
+                                  <br><label for="request">request (e.g. new user, bug report, etc.)&ensp;</label>
+                                  {{ form.request }}
+                              </div>
+                              <div class="fieldWrapper">
+                                  {{ form.body.errors }}
+                                  <br><label for="body">description&ensp;</label>
+                                  {{ form.body }}
+                              </div>
+                            </td>
+                          </table>
+                          <tr>
+                            <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><button type="submit" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138">Submit</button></span></td>
+                          </tr>
+                        </form>
+                        <!--FORM END-->
+                      </tr>
+                    </table></td>
                   </tr>
                 </table></td>
-                <tr>
-                  <td align="center" class="es-p10"><br><h3>You SHOULD be able to contact an admin... but it's not ready</h3></td>
-                </tr>
-                <tr>
-                  <td align="center" class="es-p10"><br><h3>This page is currently under construction. Please come back later.</h3></td>
-                </tr>
               </tr>
             </table></td>
           </tr>

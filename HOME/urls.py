@@ -13,6 +13,7 @@ urlpatterns = [
     path('', views.home, name='HOME-home'),
     path('planes/', views.planes, name='HOME-planes'),
     path('login/', auth_views.LoginView.as_view(template_name="HOME/login.html", extra_context={'hook' : hook, 'punch' : punch}), name='HOME-login'),
+    path('contactAdminPage/', views.contactAdminPage, name='HOME-contactAdminPage'),
     path('contactAdmin/', views.contactAdmin, name='HOME-contactAdmin'),
     path('logout/', auth_views.LogoutView.as_view(template_name="HOME/logout.html", extra_context={'hook' : hook, 'punch' : punch}), name='HOME-logout'),
     path('profile/', views.profile, name='HOME-profile'),
