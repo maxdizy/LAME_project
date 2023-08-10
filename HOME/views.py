@@ -27,7 +27,7 @@ def contactAdmin(request):
 
     try:
         email_sender = 'lame.communication@gmail.com'
-        email_pass = os.environ.get('EMAIL_PASS')
+        email_pass = os.environ['EMAIL_PASS']
         email_reviever = 'maxwell.l.dizy@lmco.com'
         if request.method == 'POST':
             form = contactAdminForm(request.POST)
