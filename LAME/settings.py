@@ -25,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_BUCKET_NAME']
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+email_pass = os.environ['EMAIL_PASS']
 
 s3 = boto3.resource('s3',
     aws_access_key_id=AWS_ACCESS_KEY_ID,
