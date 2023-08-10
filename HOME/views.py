@@ -5,6 +5,14 @@ from django.contrib.auth.decorators import login_required
 from HOME.forms import contactAdminForm
 from LAME.settings import get_file
 
+from pathlib import Path
+import os
+import psycopg2
+import boto3
+import json
+import pickle
+from django.core.files.storage import default_storage
+
 joke = random.choice(get_file('data/jokes.txt').read().decode().splitlines())
 joke = joke.split('<>')
 hook = joke[0]
