@@ -142,7 +142,7 @@ USE_TZ = True
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
+STATIC_URL = 'https://lame-bucket.s3.amazonaws.com/'
 
 if DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
