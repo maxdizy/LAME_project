@@ -54,7 +54,10 @@
                           <br><label for="mod">is this a mod?&ensp;</label>
                           {{ form.mod }}
                       </div>
-                      <input class="dropzone dz" type="file" name="IRFFile" placeholder="Drop IRF File"/>
+                      <div class="fieldWrapper">
+                        <br><label for="IRFFile">Drop IRF file below.</label><br>
+                        <br><input type="file" name="IRFFile" class="dropzone dz"/>
+                      </div>
                     </td>
                   </table>
                   <tr>
