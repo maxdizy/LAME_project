@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+#openssl req –new –newkey rsa:2048 –nodes –keyout LAME_project.key –out LAME_project.csr
+
 from pathlib import Path
 import os
 import psycopg2
@@ -44,7 +46,7 @@ def push_json(file_path, contents):
 SECRET_KEY = get_file('data/key.txt').read().decode()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 CSRF_COOKIE_SECURE=False
 SESSION_COOKIE_SECURE=False
@@ -99,6 +101,13 @@ WSGI_APPLICATION = 'LAME.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -141,15 +150,11 @@ USE_TZ = True
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/static/'
 
-STATIC_URL = 'https://lame-bucket.s3.amazonaws.com/'
+#STATIC_ROOT = os.path.join(STATIC_URL, 'static/')
 
-if DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-else:
-    STATICFILES_DIRS = (
-        os.path.join(STATIC_URL, 'static/'),
-    )
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
