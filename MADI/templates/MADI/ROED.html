@@ -21,7 +21,7 @@
                   </tr>
                   {% for potROED in potROEDs %}
                   <tr>
-                    <td align="left" class="es-p10"><br><h3 style="color:#e69138">{{ potROED.caseNo}}&nbsp;&nbsp;&nbsp;<span style="color:#333333">Part Number(s): {{ potROED.partNos }}</span></h3></td>
+                    <td align="left" class="es-p10"><br><h3 style="color:#e69138">{{ potROED.caseNo }}&nbsp;&nbsp;&nbsp;<span style="color:#333333">Part Number(s): {{ potROED.partNos }}</span></h3></td>
                   </tr>
                   <tr>
                     <td align="left" class="es-p10"><br><p>{{ potROED.keyWords }}</p></td>
@@ -31,33 +31,42 @@
                     <td style="border-bottom: 1px solid #cccccc;background: unset;height:1px;width:100%;margin:0px 0px 0px 0px"><br></td>
                   </tr>
                   <tr><td style="padding-bottom:10px"><br></td></tr>
-                  <tr>
-                    <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><a href="{% url 'MADI-createERF' %}" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138" download>Create New ERF</a></span></td>
-                  </tr>
-                  {% if dart %}
-                  <tr>
-                    <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><a href="{% url 'MADI-createDART' %}" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138" download>Create DART form</a></span></td>
-                  </tr>
-                  {% endif %}
-                  <tr>
-                    <form id="form-1688739984980" method="POST" action="{% url 'MADI-createERF' %}" enctype="multipart/form-data">
-                      {% csrf_token %}
-                      <td width="300" align="left" valign="top"></td>
-                      <table width="100%" cellspacing="0" cellpadding="0" role="presentation">
-                          <div class="fieldWrapper">
-                            <br><label for="file">choose ERF file:</label><br><br>
-                            <input type="file" name="ERFFile"/>
-                          </div>
-                      </table></td>
-                      <tr>
-                        <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><button type="submit" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138">Create ROED ERF</button></span></td>
-                      </tr>
-                    </form>
                 </table></td>
               </tr>
             </table></td>
           </tr>
         </table></td>
+        <tr>
+          <td class="es-p20r es-p10l" align="left">
+          <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td width="852" align="center" valign="top">
+              <table cellpadding="0" cellspacing="0" width="100%" role="presentation">
+                <td align="left" valign="top" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><a href="{% url 'MADI-createERF' %}" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138" download>Create New ERF</a></span></td>
+                <td align="right">
+                <form id="form-1688739984980" method="POST" action="{% url 'MADI-createERF' %}" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <table width="50%" cellspacing="0" cellpadding="0" role="presentation">
+                    <td align="left" valign="top">
+                      <div class="fieldWrapper">
+                        <br><b><label for="ERFFile">choose ERF file:</label></b><br><br>
+                        <input type="file" name="ERFFile"/>
+                      </div>
+                      <tr>
+                        <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><button type="submit" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138">Create ROED ERF</button></span></td>
+                      </tr>
+                    </td>
+                  </table>
+                </form></td>
+                {% if dart %}
+                <tr>
+                  <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><a href="{% url 'MADI-createDART' %}" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138" download>Create DART form</a></span></td>
+                </tr>
+                {% endif %}
+              </table></td>
+            </tr>
+          </table></td>
+        </tr>
       </tr>
     </table></td>
   </tr>
