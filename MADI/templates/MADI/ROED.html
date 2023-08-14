@@ -39,6 +39,20 @@
                     <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><a href="{% url 'MADI-createDART' %}" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138" download>Create DART form</a></span></td>
                   </tr>
                   {% endif %}
+                  <tr>
+                    <form id="form-1688739984980" method="POST" action="{% url 'MADI-createERF' %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <td width="300" align="left" valign="top"></td>
+                      <table width="100%" cellspacing="0" cellpadding="0" role="presentation">
+                          <div class="fieldWrapper">
+                            <br><label for="file">choose ERF file:</label><br><br>
+                            <input type="file" name="ERFFile"/>
+                          </div>
+                      </table></td>
+                      <tr>
+                        <td align="left" class="es-p10"><br><span class="es-button-border msohide" style="background: #e69138"><button type="submit" class="es-button" style="background: #e69138;mso-border-alt: 10px solid #e69138">Create ROED ERF</button></span></td>
+                      </tr>
+                    </form>
                 </table></td>
               </tr>
             </table></td>

@@ -25,9 +25,9 @@ def upload(request):
             form = uploadForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-            global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, dart, mod, file, URL
-            CN, file, dart, mod = request.POST.get('caseNo'), request.FILES.get('file'), request.POST.get("dart"), request.POST.get("mod")
-            tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, URL = readIRF(file, CN)
+            global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, dart, mod, IRFFile, URL
+            CN, IRFFile, dart, mod = request.POST.get('caseNo'), request.FILES.get('IRFFile'), request.POST.get("dart"), request.POST.get("mod")
+            tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, URL = readIRF(IRFFile, CN)
             if ROED:
                 return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'dart' : dart, 'hook' : hook, 'punch' : punch})
             else:  
@@ -38,7 +38,8 @@ def upload(request):
 
 @login_required
 def createERF(request):
-    writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, None, potROEDs, dart, mod, URL)
+    ERFFile = request.FILES.get('ERFFile')
+    writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, ERFFile, potROEDs, dart, mod, URL)
     with open(URL, 'rb') as erf:
         content = erf.read()
     # Set the return value of the HttpResponse
