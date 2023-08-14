@@ -60,8 +60,8 @@ def readIRF(f, CN):
     #update database
     database.update({CN: [PNs, KWs]})
 
-    URL = '/var/www/LAME_project/media/' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
-    #URL = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
+    #URL = '/var/www/LAME_project/media/' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
+    URL = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
 
     #push potROED
     push_json('data/potROED', potROEDs)
@@ -85,26 +85,23 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
                 General notes (add as required):
                 '''
     MPList = ''
+    if dart : dartRes='Yes'
+    else: dartRes='No'
 
     #setup ROED fields
-    if ROED: 
+    if new_ROED_file != None:
         cat = 'Category 5 : Repeat Non-Standard Repairs'
         for case in potROED:
-            ref += case['caseNo'] + '; 	Previous Similar Repair\n'
-        if new_ROED_file:
-            with open('data/ROEDlocation.txt', 'r') as rf:
-                    ROEDfile_path = rf.read()
-                    ROEDfile_path = ROEDfile_path[2:-1]
-                    print(ROEDfile_path)
-            try:
-                ERFreader = PdfReader(ROEDfile_path)
-                ERFtext = ''
-                for i in range(len(ERFreader.pages)-1):
-                    ERFtext += ERFreader.pages[i].extract_text()
-                response = ERFtext[ERFtext.find('LM Response'):ERFtext.find('LM Technical Approval')]
-                MPList = ERFtext[ERFtext.find('Material / Parts List'):ERFtext.find('Authoring and auth`orization')]
-            except:
-                pass
+            ref += new_ROED_file.name + '; 	Previous Similar Repair\n'
+        try:
+            ERFreader = PdfReader(new_ROED_file)
+            ERFtext = ''
+            for i in range(len(ERFreader.pages)-1):
+                ERFtext += ERFreader.pages[i].extract_text()
+            response = ERFtext[ERFtext.find('LM Response'):ERFtext.find('LM Technical Approval')]
+            MPList = ERFtext[ERFtext.find('Material / Parts List'):ERFtext.find('Authoring and auth`orization')]
+        except:
+            pass
 
     #populate fields
     document.merge(
@@ -117,7 +114,9 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
         Referances = ref,
         Date = '{:%y %b %d}'.format(date.today()),
         Disposition = response,
+        DART=dartRes,
         Insert = MPList,
+        Footer=CN,
         Choose=cat)
 
     #push populated ERF

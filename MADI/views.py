@@ -21,21 +21,24 @@ def home(request):
 @login_required
 def upload(request):
     if request.method == 'POST':
-        form = uploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-        global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, dart, mod, file, URL
-        CN, file, dart, mod = request.POST.get('caseNo'), request.FILES.get('file'), request.POST.get("dart"), request.POST.get("mod")
-        tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, URL = readIRF(file, CN)
-        if ROED:
-            return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'dart' : dart, 'hook' : hook, 'punch' : punch})
-        else:  
-            return redirect('MADI-createERF')
+        try:
+            form = uploadForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+            global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, dart, mod, file, URL
+            CN, file, dart, mod = request.POST.get('caseNo'), request.FILES.get('file'), request.POST.get("dart"), request.POST.get("mod")
+            tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, URL = readIRF(file, CN)
+            if ROED:
+                return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'dart' : dart, 'hook' : hook, 'punch' : punch})
+            else:  
+                return redirect('MADI-createERF')
+        except:
+            return render(request, 'MADI/home.html', {'form' : uploadForm, 'hook' : hook, 'punch' : punch, 'warning' : 'form is not valid... you sure that\'s an IRF?'})
     return redirect('HOME-home')
 
 @login_required
 def createERF(request):
-    writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, False, potROEDs, dart, mod, URL)
+    writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, None, potROEDs, dart, mod, URL)
     with open(URL, 'rb') as erf:
         content = erf.read()
     # Set the return value of the HttpResponse
@@ -47,8 +50,8 @@ def createERF(request):
     return response
 
 def createDART(request):
-    #dartPath = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + 'DART-' + CN + '.pdf'
-    dartPath = '/var/www/LAME_project/media/' + 'DART-' + CN + '.pdf'
+    dartPath = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + 'DART-' + CN + '.pdf'
+    #dartPath = '/var/www/LAME_project/media/' + 'DART-' + CN + '.pdf'
     writeDart(tail, description, affected, dartPath, CN)
     with open(dartPath, 'rb') as dart:
         dartContent = dart.read()
