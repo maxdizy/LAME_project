@@ -98,7 +98,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
             for i in range(len(ERFreader.pages)-1):
                 ERFtext += ERFreader.pages[i].extract_text()
             response = ERFtext[ERFtext.find('LM Response'):ERFtext.find('LM Technical Approval')]
-            MPList = ERFtext[ERFtext.find('Material / Parts List'):ERFtext.find('Authoring and auth`orization')]
+            MPList = ERFtext[ERFtext.find('Material / Parts List'):ERFtext.find('Authoring and authorization')]
         except:
             pass
 
