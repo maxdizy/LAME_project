@@ -77,7 +77,6 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
         document = MailMerge(io.BytesIO(get_file('data/MADI ERF Template for Mod.docx').read()))
     else:
         document = MailMerge(io.BytesIO(get_file('data/MADI ERF Template.docx').read()))
-        #document = MailMerge('/var/www/LAME_project/static/MADI ERF Template.docx')
     #setup basic fields
     tails = {'601': '5626', '602': '5627', '603': '5635', '604': '5636', '605': '5637', '606' : '5649', '607': '5650', '608': '5651', '609': '5652', '610': '5664', '611': '5665', '612': '5666', '613': '5667', '614': '5687', '615': '5688', '616': '5689', '617': '5690'}
     cat = 'Choose an item.'
@@ -92,8 +91,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
     #setup ROED fields
     if new_ROED_file != None:
         cat = 'Category 5 : Repeat Non-Standard Repairs'
-        for case in potROED:
-            ref += new_ROED_file.name + '; 	Previous Similar Repair\n'
+        ref = new_ROED_file.name + '; 	Previous Similar Repair\n'
         try:
             ERFreader = PdfReader(new_ROED_file)
             ERFtext = ''
