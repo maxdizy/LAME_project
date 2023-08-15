@@ -68,5 +68,6 @@ def user_guide(request):
     # Return the response value
     return UserGuideresponse
 
+@login_required
 def DART(request):
     return render(request, 'HOME/DART.html', {'hook' : hook, 'punch' : punch})
