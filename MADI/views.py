@@ -28,7 +28,7 @@ def upload(request):
             global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, dart, mod, IRFFile, URL
             CN, IRFFile, dart, mod = request.POST.get('caseNo'), request.FILES.get('IRFFile'), request.POST.get("dart"), request.POST.get("mod")
             tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, URL = readIRF(IRFFile, CN)
-            if ROED:
+            if ROED or dart:
                 return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'dart' : dart, 'hook' : hook, 'punch' : punch})
             else:  
                 return redirect('MADI-createERF')
