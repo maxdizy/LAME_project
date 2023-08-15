@@ -33,7 +33,7 @@ def contactAdmin(request):
             form = contactAdminForm(request.POST)
             if form.is_valid():
                 form.save()
-            subject = 'LAME request - ' + request.POST.get('ID') + ' - ' + request.POST.get('type') + ' - ' + request.POST.get('email')
+            subject = 'LAME request - ' + request.POST.get('IDNo') + ' - ' + request.POST.get('type') + ' - ' + request.POST.get('email')
             body = request.POST.get('body')
 
             em = EmailMessage()
