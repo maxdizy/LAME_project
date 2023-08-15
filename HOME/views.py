@@ -67,3 +67,6 @@ def user_guide(request):
     UserGuideresponse['Content-Disposition'] = 'attachment; filename= "LAME User Guide.pdf"'
     # Return the response value
     return UserGuideresponse
+
+def dart(request):
+    return render(request, 'HOME/dart.html', {'hook' : hook, 'punch' : punch})
