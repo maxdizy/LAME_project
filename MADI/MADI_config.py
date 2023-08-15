@@ -60,8 +60,8 @@ def readIRF(f, CN):
     #update database
     database.update({CN: [PNs, KWs]})
 
-    URL = '/var/www/LAME_project/media/' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
-    #URL = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
+    #URL = '/var/www/LAME_project/media/' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
+    URL = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
 
     #push potROED
     push_json('data/potROED', potROEDs)
@@ -79,7 +79,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
         document = MailMerge(io.BytesIO(get_file('data/MADI ERF Template.docx').read()))
     #setup basic fields
     tails = {'601': '5626', '602': '5627', '603': '5635', '604': '5636', '605': '5637', '606' : '5649', '607': '5650', '608': '5651', '609': '5652', '610': '5664', '611': '5665', '612': '5666', '613': '5667', '614': '5687', '615': '5688', '616': '5689', '617': '5690'}
-    cat = 'Choose an item.'
+    cat = 'Not applicable'
     ref = ''
     response = '''Disposition #1:
                 General notes (add as required):
