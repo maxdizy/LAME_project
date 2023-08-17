@@ -64,18 +64,12 @@ def readIRF(f, CN):
     docName = str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
     for char in invalid:
         docName = docName.replace(char, '')
-    #URL = 'C:/Users/e443176/Documents/CLASSIFIED/case-tests/' + docName
-    URL = '/var/www/LAME_project/media/' + docName
+    URL = 'C:/Users/e443176/Documents/CLASSIFIED/case-tests/' + docName
+    #URL = '/var/www/LAME_project/media/' + docName
 
-    #push potROED
-    push_json('data/potROED', potROEDs)
+    return fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROEDs, database, URL
 
-    #push database
-    push_json('data/database.json', database)
-
-    return fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROEDs, URL
-
-def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, URL):
+def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROEDs, database, dart, mod, URL):
     #pull ERF Template
     if mod:
         document = MailMerge(io.BytesIO(get_file('data/MADI ERF Template for Mod.docx').read()))
@@ -124,7 +118,9 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROED, dart, mod, UR
 
     #push populated ERF
     document.write(URL)
-    #os.startfile(filLoc)
+
+    #save database
+    push_json('data/database.json', database)
 
 def writeDart(AC, D, PN, dartPath, CN):
     #create DART form
