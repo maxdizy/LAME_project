@@ -1,5 +1,6 @@
 import os
 import random
+import requests
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
 from .MADI_config import readIRF, writeERF, writeDart
@@ -25,21 +26,21 @@ def upload(request):
             form = uploadForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-            global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, dart, mod, IRFFile, URL
+            global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, database, dart, mod, IRFFile, URL
             CN, IRFFile, dart, mod = request.POST.get('caseNo'), request.FILES.get('IRFFile'), request.POST.get("dart"), request.POST.get("mod")
-            tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, URL = readIRF(IRFFile, CN)
+            tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, database, URL = readIRF(IRFFile, CN)
             if ROED or dart:
-                return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'dart' : dart, 'hook' : hook, 'punch' : punch})
+                return render(request, 'MADI/ROED.html', {'potROEDs' : potROEDs, 'affected' : affected, 'dart' : dart, 'hook' : hook, 'punch' : punch})
             else:  
                 return redirect('MADI-createERF')
-        except:
+        except Exception as e:
             return render(request, 'MADI/home.html', {'form' : uploadForm, 'hook' : hook, 'punch' : punch, 'warning' : 'form is not valid... you sure that\'s an IRF?'})
     return redirect('HOME-home')
 
 @login_required
 def createERF(request):
     ERFFile = request.FILES.get('ERFFile')
-    writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, ERFFile, potROEDs, dart, mod, URL)
+    writeERF(CN, tail, IRFTitle, description, affected, IRFNo, ROED, ERFFile, potROEDs, database, dart, mod, URL)
     with open(URL, 'rb') as erf:
         content = erf.read()
     # Set the return value of the HttpResponse

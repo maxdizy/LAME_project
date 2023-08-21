@@ -64,8 +64,8 @@ def readIRF(f, CN):
     docName = str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
     for char in invalid:
         docName = docName.replace(char, '')
-    URL = 'C:/Users/e443176/Documents/CLASSIFIED/case-tests/' + docName
-    #URL = '/var/www/LAME_project/media/' + docName
+    #URL = 'C:/Users/e443176/Documents/CLASSIFIED/case-tests/' + docName
+    URL = '/var/www/LAME_project/media/' + docName
 
     return fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROEDs, database, URL
 
@@ -85,6 +85,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROEDs, database, da
     MPList = ''
     if dart : dartRes='Yes'
     else: dartRes='No'
+    ROEDReferances = ''
 
     #setup ROED fields
     if new_ROED_file != None:
@@ -95,7 +96,10 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROEDs, database, da
             ERFtext = ''
             for i in range(len(ERFreader.pages)-1):
                 ERFtext += ERFreader.pages[i].extract_text()
-            print(ERFtext)
+            try:
+                ROEDReferances = ERFtext[ERFtext.find('References:'):ERFtext.find('Figure')]
+            except:
+                ROEDReferances = ERFtext[ERFtext.find('References:'):ERFtext.find('LM Response')]
             response = ERFtext[ERFtext.find('LM Response'):ERFtext.find('LM Technical Approval')]
             MPList = ERFtext[ERFtext.find('Material / Parts List:'):]
         except:
@@ -109,12 +113,13 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROEDs, database, da
         Description=D,
         Affected='PN ' + PN,
         Relevant='IRF ' + IRF + ' - Attached in ServiceFLO',
-        Referances = ref,
+        Referances = ref + '\n' + ROEDReferances,
         Date = '{:%y %b %d}'.format(date.today()),
         Disposition = response,
         DART=dartRes,
         Insert = MPList,
-        Choose=cat)
+        Choose=cat,
+        Footer=CN + ' Rev.-')
 
     #push populated ERF
     document.write(URL)
