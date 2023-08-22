@@ -15,7 +15,7 @@ from sklearn import preprocessing
 import pickle
 import json
 import yake
-#from LAME.settings import get_file
+from LAME.settings import get_file
 
 train = False
 BuildTrainingSet = False
@@ -125,8 +125,8 @@ def getPNs(data):
         meta = meta.astype(float)
 
         #predict PN
-        model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
-        #model = pickle.loads(get_file('data/NLPmodel.pickle').read())
+        #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
+        model = pickle.loads(get_file('data/NLPmodel.pickle').read())
         for i in range(len(x.index)-1):
             if model.predict(meta.iloc[[i]]) == 1:
                 #create list
