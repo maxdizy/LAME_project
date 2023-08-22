@@ -105,7 +105,6 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROEDs, database, da
             MPList = ERFtext[ERFtext.find('Material / Parts List:'):]
         except:
             pass
-    print(ERFtext)
 
     #populate fields
     document.merge(
