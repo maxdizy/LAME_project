@@ -65,8 +65,8 @@ def readIRF(f, CN):
     docName = str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
     for char in invalid:
         docName = docName.replace(char, '')
-    #URL = 'C:/Users/e443176/Documents/CLASSIFIED/case-tests/' + docName
-    URL = '/var/www/LAME_project/media/' + docName
+    URL = 'C:/Users/e443176/Documents/CLASSIFIED/case-tests/' + docName
+    #URL = '/var/www/LAME_project/media/' + docName
 
     return fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROEDs, database, URL
 
@@ -98,13 +98,14 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROEDs, database, da
             for i in range(len(ERFreader.pages)-1):
                 ERFtext += ERFreader.pages[i].extract_text()
             try:
-                ROEDReferances = ERFtext[ERFtext.find('References:'):ERFtext.find('Figure')]
+                ROEDReferances = ERFtext[ERFtext.find('References'):ERFtext.find('Figure')]
             except:
-                ROEDReferances = ERFtext[ERFtext.find('References:'):ERFtext.find('LM Response')]
+                ROEDReferances = ERFtext[ERFtext.find('References'):ERFtext.find('LM Response')]
             response = ERFtext[ERFtext.find('LM Response'):ERFtext.find('LM Technical Approval')]
             MPList = ERFtext[ERFtext.find('Material / Parts List:'):]
         except:
             pass
+    print(ERFtext)
 
     #populate fields
     document.merge(
