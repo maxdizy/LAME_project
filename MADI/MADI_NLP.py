@@ -15,7 +15,7 @@ from sklearn import preprocessing
 import pickle
 import json
 import yake
-from LAME.settings import get_file
+#from LAME.settings import get_file
 
 train = False
 BuildTrainingSet = False
@@ -59,10 +59,13 @@ def getWordMeta(data):
     wordsRAW = data.split()
     words = []
     wordMeta = []
+    finWords = []
 
     #clean words
     for word in wordsRAW:
         if word not in stop_words:
+            word = str(word.translate(str.maketrans('','',string.punctuation.replace('-','').replace('/',''))))
+            finWords.append(word)
             word = str(word.translate(str.maketrans('','',string.punctuation)))
             words.append(word)
 
@@ -105,12 +108,13 @@ def getWordMeta(data):
         wordMeta.append((word, temp[0], temp[1], temp[2], temp[3]))
         #set prev
         prev = word
-    return wordMeta
+    return [wordMeta, finWords]
 
 def getPNs(data):
     #define variables
     PNList = []
-    wordMeta = getWordMeta(data)
+    wordMeta = getWordMeta(data)[0]
+    finWords = getWordMeta(data)[1]
 
     #create and clean df
     try:
@@ -121,16 +125,15 @@ def getPNs(data):
         meta = meta.astype(float)
 
         #predict PN
-        # with open('MADI/models/NLPmodel.pickle', 'rb') as file:
-        #     model = pickle.load(file)
-        #model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
-        model = pickle.loads(get_file('data/NLPmodel.pickle').read())
+        model = pickle.load(open("MADI/models/NLPmodel.pickle", "rb"))
+        #model = pickle.loads(get_file('data/NLPmodel.pickle').read())
         for i in range(len(x.index)-1):
             if model.predict(meta.iloc[[i]]) == 1:
                 #create list
-                PNList.append(x.iloc[[i]]['word'].to_string(index=False))
+                PNList.append(finWords[i])
         return PNList
-    except:
+    except Exception as e:
+        print(f"Exception is: {e}")
         return PNList
 
 def keywords(data):

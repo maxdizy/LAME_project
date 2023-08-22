@@ -22,6 +22,7 @@ def readIRF(f, CN):
     dict(fields)
 
     database = json.load(get_file('data/database.json'))
+    #database = json.load(open("data_old/database_new.json", "rb"))
     
     #find PNs
     potROEDs = []
