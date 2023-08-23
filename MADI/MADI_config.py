@@ -1,3 +1,8 @@
+'''handels file reading and writing
+readIRF extracts and organizes the IRF data
+writeERF writes the data to a word document
+writeDART creates a DART form with accessable data'''
+
 import os
 import io
 import sys
@@ -128,7 +133,7 @@ def writeERF(CN, AC, SD, D, PN, IRF, ROED, new_ROED_file, potROEDs, database, da
     #save database
     push_json('data/database.json', database)
 
-def writeDart(AC, D, PN, dartPath, CN):
+def writeDART(AC, D, PN, dartPath, CN):
     #create DART form
     reader = PdfReader(io.BytesIO(get_file("data/DART template.pdf").read()))
     fields = reader.get_form_text_fields()

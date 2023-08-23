@@ -1,3 +1,9 @@
+'''handels machine learning and natural language processing of extracted data.
+trainmodel can be used to either add data to the training data (by setting BuildTrainingSet = True) or build a pickel model based on the training set.
+getWordMeta finds each words meta data including a number representing the previous word, number representing the type of word, if the word is a number or not, and number of digits
+getPNs extracts part numbers from the short description and description using the NLPmodel.pickel file
+keywords uses yake to extract 10 keywords from the description'''
+
 import math
 import sys
 import os
