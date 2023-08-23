@@ -3,7 +3,7 @@ import random
 import requests
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
-from .MADI_config import readIRF, writeERF, writeDart
+from .MADI_config import readIRF, writeERF, writeDART
 from MADI.forms import uploadForm
 from .models import config
 from django.contrib.auth.decorators import login_required
@@ -54,7 +54,7 @@ def createERF(request):
 def createDART(request):
     #dartPath = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + 'DART-' + CN + '.pdf'
     dartPath = '/var/www/LAME_project/media/' + 'DART-' + CN + '.pdf'
-    writeDart(tail, description, affected, dartPath, CN)
+    writeDART(tail, description, affected, dartPath, CN)
     with open(dartPath, 'rb') as dart:
         dartContent = dart.read()
     # Set the return value of the HttpResponse
