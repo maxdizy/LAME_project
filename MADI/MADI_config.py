@@ -42,7 +42,7 @@ def readIRF(f, CN):
             if len(affected) > 0 : affected += ', '
             affected += str(PN)
     for PN in getPNs(description):
-        if PN not in PN:
+        if PN not in PNs:
             PNs.append(PN)
             if len(affected) > 0 : affected += ', '
             affected += str(PN)
@@ -70,8 +70,8 @@ def readIRF(f, CN):
     docName = str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
     for char in invalid:
         docName = docName.replace(char, '')
-    #URL = 'C:/Users/e443176/Documents/CLASSIFIED/case-tests/' + docName
-    URL = '/var/www/LAME_project/media/' + docName
+    URL = 'C:/LAME_project/temp/' + docName
+    #URL = '/var/www/LAME_project/media/' + docName
 
     return fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROEDs, database, URL
 
