@@ -50,8 +50,8 @@ def createERF(request):
     return response
 
 def createDART(request):
-    dartPath = 'C:/LAME_project/temp/' + 'DART-' + CN + '.pdf'
-    #dartPath = '/var/www/LAME_project/media/' + 'DART-' + CN + '.pdf'
+    #dartPath = 'C:/LAME_project/temp/' + 'DART-' + CN + '.pdf'
+    dartPath = '/var/www/LAME_project/media/' + 'DART-' + CN + '.pdf'
     writeDART(tail, description, affected, dartPath, CN)
     with open(dartPath, 'rb') as dart:
         dartContent = dart.read()
