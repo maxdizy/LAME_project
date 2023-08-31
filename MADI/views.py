@@ -24,8 +24,6 @@ def upload(request):
     if request.method == 'POST':
         try:
             form = uploadForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
             global CN, tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, database, dart, mod, IRFFile, URL
             CN, IRFFile, dart, mod = request.POST.get('caseNo'), request.FILES.get('IRFFile'), request.POST.get("dart"), request.POST.get("mod")
             tail, IRFTitle, description, affected, IRFNo, ROED, potROEDs, database, URL = readIRF(IRFFile, CN)
@@ -52,8 +50,8 @@ def createERF(request):
     return response
 
 def createDART(request):
-    #dartPath = r'C:\Users\e443176\Documents\CLASSIFIED\case-tests\\' + 'DART-' + CN + '.pdf'
-    dartPath = '/var/www/LAME_project/media/' + 'DART-' + CN + '.pdf'
+    dartPath = 'C:/LAME_project/temp/' + 'DART-' + CN + '.pdf'
+    #dartPath = '/var/www/LAME_project/media/' + 'DART-' + CN + '.pdf'
     writeDART(tail, description, affected, dartPath, CN)
     with open(dartPath, 'rb') as dart:
         dartContent = dart.read()
