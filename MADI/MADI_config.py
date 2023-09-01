@@ -57,7 +57,8 @@ def readIRF(f, CN):
     for PN in PNs:
         for case in database:
             if PN in database[case][0]:
-                potROEDs.append({'caseNo' : case, 'partNos' : ', '.join(database[case][0]), 'keyWords' : ', '.join(database[case][1])})
+                if not any(item['caseNo'] == case for item in potROEDs):
+                        potROEDs.append({'caseNo' : case, 'partNos' : ', '.join(database[case][0]), 'keyWords' : ', '.join(database[case][1])})
 
     #find if potential ROED
     ROED = False
@@ -70,8 +71,8 @@ def readIRF(f, CN):
     docName = str(CN) + '-' + str(fields['Tail Row1']) + '-' + IRFTitle + '.docx'
     for char in invalid:
         docName = docName.replace(char, '')
-    #URL = 'C:/LAME_project/temp/' + docName
-    URL = '/var/www/LAME_project/media/' + docName
+    URL = 'C:/LAME_project/temp/' + docName
+    #URL = '/var/www/LAME_project/media/' + docName
 
     return fields['Tail Row1'], IRFTitle, description, affected, fields['IRF'], ROED, potROEDs, database, URL
 
